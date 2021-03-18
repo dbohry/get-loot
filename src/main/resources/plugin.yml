@@ -1,0 +1,5 @@
+name: GetLoot
+version: 1.0.0
+main: com.lhamacorp.minecraft.plugins.java.getloot.Main
+api-version: 1.13
+authors: [Hellmazter]
