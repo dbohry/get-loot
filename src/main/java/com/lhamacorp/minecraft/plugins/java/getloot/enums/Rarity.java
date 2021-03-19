@@ -1,10 +1,11 @@
-package com.lhamacorp.minecraft.plugins.java.getloot.mod;
+package com.lhamacorp.minecraft.plugins.java.getloot.enums;
 
 public enum Rarity {
 
-    COMMON(3),
-    RARE(7),
-    RAREST(9);
+    VERY_COMMON(30),
+    COMMON(50),
+    RARE(80),
+    RAREST(95);
 
     private final int rarity;
 
