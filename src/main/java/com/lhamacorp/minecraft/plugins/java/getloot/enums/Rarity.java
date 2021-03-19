@@ -2,10 +2,10 @@ package com.lhamacorp.minecraft.plugins.java.getloot.enums;
 
 public enum Rarity {
 
-    VERY_COMMON(30),
-    COMMON(50),
-    RARE(80),
-    RAREST(95);
+    VERY_COMMON(900),
+    COMMON(950),
+    RARE(990),
+    VERY_RARE(999);
 
     private final int rarity;
 

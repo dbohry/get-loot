@@ -25,7 +25,7 @@ public class GetLootFromBlock implements Listener {
 
             List<ItemStack> loot = new ArrayList<>();
 
-            if (shouldDrop(random(), Rarity.RAREST))
+            if (shouldDrop(random(), Rarity.VERY_RARE))
                 loot.add(new ItemStack(Material.DIAMOND, 1));
 
             if (shouldDrop(random(), Rarity.RARE))

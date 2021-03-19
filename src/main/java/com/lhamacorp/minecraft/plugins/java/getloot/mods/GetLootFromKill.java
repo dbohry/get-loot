@@ -1,6 +1,7 @@
 package com.lhamacorp.minecraft.plugins.java.getloot.mods;
 
 import com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity;
+import com.lhamacorp.minecraft.plugins.java.getloot.utils.LootHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -17,12 +18,38 @@ import static com.lhamacorp.minecraft.plugins.java.getloot.utils.RandomHelper.ra
 
 public class GetLootFromKill implements Listener {
 
+    private final LootHelper helper = new LootHelper();
+
     @EventHandler
     public void onKill(EntityDeathEvent event) {
         LivingEntity enemy = event.getEntity();
 
-        if (enemy.getType() == EntityType.VILLAGER || enemy.getType() == EntityType.ZOMBIE) {
+        if (enemy.getType() == EntityType.VILLAGER) {
             spawnItems(enemy, prepareVillageLoot());
+        }
+
+        if (enemy.getType() == EntityType.ZOMBIE) {
+            spawnItems(enemy, prepareZombieLoot());
+        }
+
+        if (enemy.getType() == EntityType.SKELETON) {
+            spawnItems(enemy, prepareSkeletonLoot());
+        }
+
+        if (enemy.getType() == EntityType.CREEPER) {
+            spawnItems(enemy, prepareCreeperLoot());
+        }
+
+        if (enemy.getType() == EntityType.SPIDER) {
+            spawnItems(enemy, prepareSpiderLoot());
+        }
+
+        if (enemy.getType() == EntityType.WITCH) {
+            spawnItems(enemy, prepareWitchLoot());
+        }
+
+        if (enemy.getType() == EntityType.ENDERMAN) {
+            spawnItems(enemy, prepareEndermanLoot());
         }
 
         if (enemy.getType() == EntityType.CHICKEN) {
@@ -38,38 +65,74 @@ public class GetLootFromKill implements Listener {
     private List<ItemStack> prepareVillageLoot() {
         List<ItemStack> loot = new ArrayList<>();
 
-        if (shouldDrop(random(), Rarity.RAREST))
-            loot.add(new ItemStack(Material.EMERALD, 1));
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 1, 1.08f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1.05f));
 
-        if (shouldDrop(random(), Rarity.RAREST))
-            loot.add(new ItemStack(Material.GOLD_NUGGET, random(2, 1)));
+        return loot;
+    }
 
-        if (shouldDrop(random(), Rarity.RARE))
-            loot.add(new ItemStack(Material.IRON_NUGGET, random(3, 1)));
+    private List<ItemStack> prepareZombieLoot() {
+        List<ItemStack> loot = new ArrayList<>();
 
-        if (shouldDrop(random(), Rarity.COMMON))
-            loot.add(new ItemStack(Material.IRON_SWORD, 1));
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 1, 1));
 
-        if (shouldDrop(random(), Rarity.VERY_COMMON))
-            loot.add(new ItemStack(Material.WOODEN_AXE, 1));
+        return loot;
+    }
 
-        if (shouldDrop(random(), Rarity.VERY_COMMON))
-            loot.add(new ItemStack(Material.WOODEN_PICKAXE, 1));
+    private List<ItemStack> prepareSpiderLoot() {
+        List<ItemStack> loot = new ArrayList<>();
 
-        if (shouldDrop(random(), Rarity.VERY_COMMON))
-            loot.add(new ItemStack(Material.WOODEN_SHOVEL, 1));
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 1, 1));
 
-        if (shouldDrop(random(), Rarity.VERY_COMMON))
-            loot.add(new ItemStack(Material.LEATHER_BOOTS, 1));
+        return loot;
+    }
 
-        if (shouldDrop(random(), Rarity.VERY_COMMON))
-            loot.add(new ItemStack(Material.LEATHER_LEGGINGS, 1));
+    private List<ItemStack> prepareSkeletonLoot() {
+        List<ItemStack> loot = new ArrayList<>();
 
-        if (shouldDrop(random(), Rarity.VERY_COMMON))
-            loot.add(new ItemStack(Material.LEATHER_CHESTPLATE, 1));
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 1, 1.025f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1.015f));
 
-        if (shouldDrop(random(), Rarity.VERY_COMMON))
-            loot.add(new ItemStack(Material.LEATHER_HELMET, 1));
+        return loot;
+    }
+
+    private List<ItemStack> prepareCreeperLoot() {
+        List<ItemStack> loot = new ArrayList<>();
+
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 1, 1.030f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1.020f));
+
+        return loot;
+    }
+
+    private List<ItemStack> prepareEndermanLoot() {
+        List<ItemStack> loot = new ArrayList<>();
+
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 1, 1.040f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1.025f));
+
+        return loot;
+    }
+
+    private List<ItemStack> prepareWitchLoot() {
+        List<ItemStack> loot = new ArrayList<>();
+
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 1, 1.045f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1.030f));
 
         return loot;
     }
