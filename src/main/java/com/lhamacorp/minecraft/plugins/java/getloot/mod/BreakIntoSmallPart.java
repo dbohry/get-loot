@@ -1,4 +1,4 @@
-package com.lhamacorp.minecraft.plugins.java.getloot;
+package com.lhamacorp.minecraft.plugins.java.getloot.mod;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
