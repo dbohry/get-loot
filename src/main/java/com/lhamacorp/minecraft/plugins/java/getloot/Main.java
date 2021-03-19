@@ -8,10 +8,11 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         System.out.println("GetLook is enabled!");
         getServer().getPluginManager().registerEvents(new GetLoot(), this);
+        getServer().getPluginManager().registerEvents(new BreakIntoSmallPart(), this);
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        System.out.println("GetLook is disabled!");
     }
 }

@@ -1,6 +1,5 @@
 package com.lhamacorp.minecraft.plugins.java.getloot;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -18,7 +17,6 @@ public class GetLoot implements Listener {
     @EventHandler
     public void onBreakBlock(BlockBreakEvent event) {
         Block blockBroken = event.getBlock();
-        event.setCancelled(true);
 
         if (blockBroken.getType() == Material.COBBLESTONE) {
             event.setCancelled(true);
@@ -28,15 +26,6 @@ public class GetLoot implements Listener {
             ItemStack gold = new ItemStack(Material.GOLD_INGOT, random());
 
             spawnItems(blockBroken, Arrays.asList(diamonds, gold));
-        }
-
-        if (blockBroken.getType() == Material.GOLD_BLOCK) {
-            event.setCancelled(true);
-            blockBroken.setType(Material.AIR);
-            ItemStack bars = new ItemStack(Material.GOLD_INGOT, 9);
-            blockBroken
-                    .getWorld()
-                    .dropItemNaturally(blockBroken.getLocation(), bars);
         }
 
     }
