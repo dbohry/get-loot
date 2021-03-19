@@ -154,8 +154,4 @@ public class GetLootFromKill implements Listener {
         }
     }
 
-    private boolean shouldDrop(int value, Rarity rarity) {
-        return value > rarity.getRarity();
-    }
-
 }

@@ -60,7 +60,8 @@ public class LootHelper {
             Material.DIAMOND_CHESTPLATE,
             Material.DIAMOND_LEGGINGS,
             Material.DIAMOND_BOOTS,
-            Material.MAP
+            Material.MAP,
+            Material.COMPASS
     );
 
     public List<ItemStack> createLoot(Rarity rarity, int limit, float multiplier) {
@@ -73,7 +74,6 @@ public class LootHelper {
 
             for (int i = 0; i <= 5; i++) {
                 if (shouldAddToLoot(rarity, multiplier) && veryCommonLoot.size() < limit) {
-                    System.out.println("item added to the loot: " + VERY_COMMON_ITEMS.get(i));
                     veryCommonLoot.add(new ItemStack(VERY_COMMON_ITEMS.get(i), 1));
                 }
             }
@@ -88,7 +88,6 @@ public class LootHelper {
 
             for (int i = 0; i <= 4; i++) {
                 if (shouldAddToLoot(rarity, multiplier) && commonLoot.size() < limit) {
-                    System.out.println("item added to the loot: " + COMMON_ITEMS.get(i));
                     commonLoot.add(new ItemStack(COMMON_ITEMS.get(i), 1));
                 }
             }
@@ -103,7 +102,6 @@ public class LootHelper {
 
             for (int i = 0; i <= 2; i++) {
                 if (shouldAddToLoot(rarity, multiplier) && rareLoot.size() < limit) {
-                    System.out.println("item added to the loot: " + RARE_ITEMS.get(i));
                     rareLoot.add(new ItemStack(RARE_ITEMS.get(i), 1));
                 }
             }
@@ -118,7 +116,6 @@ public class LootHelper {
 
             for (int i = 0; i <= 2; i++) {
                 if (shouldAddToLoot(rarity, multiplier) && veryRareLoot.size() < limit) {
-                    System.out.println("item added to the loot: " + VERY_RARE_ITEMS.get(i));
                     veryRareLoot.add(new ItemStack(VERY_RARE_ITEMS.get(i), 1));
                 }
             }
@@ -131,9 +128,6 @@ public class LootHelper {
 
     private boolean shouldAddToLoot(Rarity rarity, float multiplier) {
         float probability = (float) (random() / 2) * multiplier;
-
-        System.out.printf("the multiplier was: [%f] and the final probability was: [%f]%n", multiplier, probability);
-
         return probability > rarity.getRarity();
     }
 
