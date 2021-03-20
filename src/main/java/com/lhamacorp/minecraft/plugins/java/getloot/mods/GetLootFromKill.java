@@ -2,7 +2,6 @@ package com.lhamacorp.minecraft.plugins.java.getloot.mods;
 
 import com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity;
 import com.lhamacorp.minecraft.plugins.java.getloot.utils.LootHelper;
-import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -25,7 +24,19 @@ public class GetLootFromKill implements Listener {
         LivingEntity enemy = event.getEntity();
 
         if (enemy.getType() == EntityType.VILLAGER) {
-            spawnItems(enemy, prepareVillageLoot());
+            spawnItems(enemy, prepareVillagerLoot());
+        }
+
+        if (enemy.getType() == EntityType.ZOMBIE_VILLAGER) {
+            spawnItems(enemy, prepareVillagerLoot());
+        }
+
+        if (enemy.getType() == EntityType.PILLAGER) {
+            spawnItems(enemy, preparePillagerLoot());
+        }
+
+        if (enemy.getType() == EntityType.DROWNED) {
+            spawnItems(enemy, prepareZombieLoot());
         }
 
         if (enemy.getType() == EntityType.ZOMBIE) {
@@ -62,13 +73,25 @@ public class GetLootFromKill implements Listener {
 
     }
 
-    private List<ItemStack> prepareVillageLoot() {
+    private List<ItemStack> prepareVillagerLoot() {
         List<ItemStack> loot = new ArrayList<>();
 
         loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 1, 1));
         loot.addAll(helper.createLoot(Rarity.COMMON, 1, 1));
         loot.addAll(helper.createLoot(Rarity.RARE, 1, 1.08f));
         loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1.05f));
+
+        return loot;
+    }
+
+    private List<ItemStack> preparePillagerLoot() {
+        List<ItemStack> loot = new ArrayList<>();
+
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 1, 1.08f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1.05f));
+        loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
 
         return loot;
     }
@@ -88,7 +111,8 @@ public class GetLootFromKill implements Listener {
 
         loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 1, 1));
         loot.addAll(helper.createLoot(Rarity.COMMON, 1, 1));
-        loot.addAll(helper.createLoot(Rarity.RARE, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 1, 1.010f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1));
 
         return loot;
     }
@@ -122,6 +146,7 @@ public class GetLootFromKill implements Listener {
         loot.addAll(helper.createLoot(Rarity.COMMON, 1, 1));
         loot.addAll(helper.createLoot(Rarity.RARE, 1, 1.040f));
         loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1.025f));
+        loot.addAll(helper.createLoot(Rarity.EPIC, 1,  1.01f));
 
         return loot;
     }
@@ -133,6 +158,7 @@ public class GetLootFromKill implements Listener {
         loot.addAll(helper.createLoot(Rarity.COMMON, 1, 1));
         loot.addAll(helper.createLoot(Rarity.RARE, 1, 1.045f));
         loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1.030f));
+        loot.addAll(helper.createLoot(Rarity.EPIC, 1,  1.01f));
 
         return loot;
     }
