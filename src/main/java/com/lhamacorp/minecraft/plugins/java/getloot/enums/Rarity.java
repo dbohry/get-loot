@@ -6,8 +6,8 @@ public enum Rarity {
     COMMON(950),
     RARE(990),
     VERY_RARE(999),
-    EPIC(1000);
-
+    EPIC(1000),
+    CUSTOM(900);
 
     private final int rarity;
 
