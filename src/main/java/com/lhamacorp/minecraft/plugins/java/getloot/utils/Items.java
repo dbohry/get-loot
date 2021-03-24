@@ -9,6 +9,16 @@ import static org.bukkit.Material.*;
 
 class Items {
 
+    static final List<Material> COMMON_CURRENCY_ITEMS = Arrays.asList(
+            IRON_NUGGET,
+            GOLD_NUGGET
+    );
+
+    static final List<Material> RARE_CURRENCY_ITEMS = Arrays.asList(
+            EMERALD,
+            LAPIS_LAZULI
+    );
+
     static final List<Material> VERY_COMMON_ITEMS = Arrays.asList(
             LEATHER_HELMET,
             LEATHER_CHESTPLATE,

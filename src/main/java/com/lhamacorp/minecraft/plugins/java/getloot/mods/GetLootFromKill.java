@@ -27,15 +27,6 @@ public class GetLootFromKill implements Listener {
     public void onKill(EntityDeathEvent event) {
         LivingEntity creature = event.getEntity();
 
-        try {
-            dropLootFromCreature(creature);
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-
-    }
-
-    private void dropLootFromCreature(LivingEntity creature) {
         switch (creature.getType()) {
             case VILLAGER:
             case ZOMBIE_VILLAGER:
@@ -86,6 +77,9 @@ public class GetLootFromKill implements Listener {
         loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.08f));
         loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1.05f));
 
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.08f));
+        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.05f));
+
         return loot;
     }
 
@@ -97,6 +91,9 @@ public class GetLootFromKill implements Listener {
         loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.08f));
         loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1.05f));
         loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
+
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.08f));
+        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.05f));
 
         List<Material> customItems = Arrays.asList(
                 ARROW,
@@ -182,6 +179,8 @@ public class GetLootFromKill implements Listener {
         loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.030f));
         loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1.020f));
 
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.30f));
+
         return loot;
     }
 
@@ -194,6 +193,9 @@ public class GetLootFromKill implements Listener {
         loot.addAll(helper.createLoot(Rarity.VERY_RARE, 3, 1.025f));
         loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
 
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.040f));
+        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.025f));
+
         return loot;
     }
 
@@ -205,6 +207,9 @@ public class GetLootFromKill implements Listener {
         loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.045f));
         loot.addAll(helper.createLoot(Rarity.VERY_RARE, 3, 1.030f));
         loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
+
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.045f));
+        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.030f));
 
         List<Material> customItems = Arrays.asList(
                 WOODEN_SWORD,
@@ -255,8 +260,19 @@ public class GetLootFromKill implements Listener {
         return new ArrayList<>(helper.createLoot(Rarity.CUSTOM, 1, 1, customLoot));
     }
 
+    private List<ItemStack> addCurrencyItem() {
+        List<ItemStack> loot = new ArrayList<>();
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1));
+
+        return loot;
+    }
+
     private void spawnItems(LivingEntity entity, List<ItemStack> items) {
         if (items.isEmpty()) return;
+
+        items.addAll(addCurrencyItem());
+
         for (ItemStack item : items) {
             entity
                     .getWorld()

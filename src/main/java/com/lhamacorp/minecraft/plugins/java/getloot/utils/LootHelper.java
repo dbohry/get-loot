@@ -21,6 +21,8 @@ public class LootHelper {
         put(Rarity.RARE, RARE_ITEMS);
         put(Rarity.VERY_RARE, VERY_RARE_ITEMS);
         put(Rarity.EPIC, EPIC_ITEMS);
+        put(Rarity.COMMON_CURRENCY, COMMON_CURRENCY_ITEMS);
+        put(Rarity.RARE_CURRENCY, RARE_CURRENCY_ITEMS);
     }};
 
     public List<ItemStack> createLoot(Rarity rarity, int tries, float multiplier, List<Material> customLoot) {
@@ -55,6 +57,14 @@ public class LootHelper {
             loot.addAll(buildItemStack(rarity, tries, multiplier));
         }
 
+        if (rarity == Rarity.COMMON_CURRENCY) {
+            loot.addAll(buildItemStack(rarity, tries, multiplier));
+        }
+
+        if (rarity == Rarity.RARE_CURRENCY) {
+            loot.addAll(buildItemStack(rarity, tries, multiplier));
+        }
+
         return loot;
     }
 
@@ -63,8 +73,9 @@ public class LootHelper {
         List<ItemStack> stack = new ArrayList<>();
         for (int i = 0; i <= tries; i++) {
             if (shouldAddToLoot(rarity, multiplier) && stack.size() < 1) {
-                Material item = RARITY_LISTS.get(rarity).stream().findFirst().get();
-                stack.add(new ItemStack(item, 1));
+                RARITY_LISTS.get(rarity).stream()
+                        .findFirst()
+                        .ifPresent(item -> stack.add(new ItemStack(item, 1)));
             }
         }
 
