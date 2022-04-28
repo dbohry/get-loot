@@ -2,17 +2,32 @@
 
 Is a Minecraft Mod to make it easy to farm items by killing monsters.
 
+## Requirements
+Spigot >= 1.8.2
+
 ## Current lootable mobs
+
+### Enemies
 - Spiders
 - Zombies
 - Drowned
 - Skeletons
 - Creepers
-- Endermans
 - Witches
 - Villagers
 - Zombie Villagers
-- Pilagers
+- Pillagers
+- Endermans
+- Guardians
+- Elder Guardians
+
+### Animals
+
+- Chicken
+- Pig
+- Cow
+- Sheep
+- Rabbit
 
 ## How does it work?
 
