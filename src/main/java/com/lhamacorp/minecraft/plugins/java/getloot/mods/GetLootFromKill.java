@@ -4,7 +4,6 @@ import com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity;
 import com.lhamacorp.minecraft.plugins.java.getloot.utils.LootHelper;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Creature;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.lhamacorp.minecraft.plugins.java.getloot.utils.RandomHelper.random;
+import static com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity.CUSTOM;
 import static org.bukkit.Material.*;
 
 public class GetLootFromKill implements Listener {
@@ -54,6 +53,12 @@ public class GetLootFromKill implements Listener {
             case ENDERMAN:
                 spawnItems(creature, prepareEndermanLoot());
                 break;
+            case GUARDIAN:
+                spawnItems(creature, prepareGuardianLoot());
+                break;
+            case ELDER_GUARDIAN:
+                spawnItems(creature, prepareElderGuardianLoot());
+                break;
             case CHICKEN:
                 spawnItems(creature, prepareChickenLoot());
                 break;
@@ -65,6 +70,9 @@ public class GetLootFromKill implements Listener {
                 break;
             case SHEEP:
                 spawnItems(creature, prepareSheepLoot());
+                break;
+            case RABBIT:
+                spawnItems(creature, prepareRabbitLoot());
                 break;
         }
     }
@@ -103,7 +111,7 @@ public class GetLootFromKill implements Listener {
                 BOW
         );
 
-        loot.addAll(helper.createLoot(Rarity.CUSTOM, 1, 1, customItems));
+        loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
 
         return loot;
     }
@@ -127,7 +135,7 @@ public class GetLootFromKill implements Listener {
                 BEETROOT_SEEDS
         );
 
-        loot.addAll(helper.createLoot(Rarity.CUSTOM, 1, 1, customItems));
+        loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
 
         return loot;
     }
@@ -145,7 +153,7 @@ public class GetLootFromKill implements Listener {
                 COBWEB
         );
 
-        loot.addAll(helper.createLoot(Rarity.CUSTOM, 1, 1, customItems));
+        loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
 
         return loot;
     }
@@ -166,7 +174,7 @@ public class GetLootFromKill implements Listener {
                 BOW
         );
 
-        loot.addAll(helper.createLoot(Rarity.CUSTOM, 1, 1, customItems));
+        loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
 
         return loot;
     }
@@ -199,6 +207,28 @@ public class GetLootFromKill implements Listener {
         return loot;
     }
 
+    private List<ItemStack> prepareGuardianLoot() {
+        List<ItemStack> loot = new ArrayList<>();
+
+        loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.05f));
+
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.045f));
+        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.030f));
+
+        return loot;
+    }
+
+    private List<ItemStack> prepareElderGuardianLoot() {
+        List<ItemStack> loot = new ArrayList<>();
+
+        loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.10f));
+
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.050f));
+        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.035f));
+
+        return loot;
+    }
+
     private List<ItemStack> prepareWitchLoot() {
         List<ItemStack> loot = new ArrayList<>();
 
@@ -219,7 +249,7 @@ public class GetLootFromKill implements Listener {
         );
 
         Collections.shuffle(customItems);
-        List<ItemStack> customLoot = helper.createLoot(Rarity.CUSTOM, 1, 1, customItems);
+        List<ItemStack> customLoot = helper.createLoot(CUSTOM, 1, 1, customItems);
 
         List<Enchantment> enchantments = Arrays.asList(
                 Enchantment.FIRE_ASPECT,
@@ -242,22 +272,27 @@ public class GetLootFromKill implements Listener {
 
     private List<ItemStack> prepareChickenLoot() {
         List<Material> customLoot = Collections.singletonList(Material.CHICKEN_SPAWN_EGG);
-        return new ArrayList<>(helper.createLoot(Rarity.CUSTOM, 1, 1, customLoot));
+        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
     }
 
     private List<ItemStack> preparePigLoot() {
         List<Material> customLoot = Collections.singletonList(Material.PIG_SPAWN_EGG);
-        return new ArrayList<>(helper.createLoot(Rarity.CUSTOM, 1, 1, customLoot));
+        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
     }
 
     private List<ItemStack> prepareCowLoot() {
         List<Material> customLoot = Collections.singletonList(Material.COW_SPAWN_EGG);
-        return new ArrayList<>(helper.createLoot(Rarity.CUSTOM, 1, 1, customLoot));
+        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
     }
 
     private List<ItemStack> prepareSheepLoot() {
         List<Material> customLoot = Collections.singletonList(Material.SHEEP_SPAWN_EGG);
-        return new ArrayList<>(helper.createLoot(Rarity.CUSTOM, 1, 1, customLoot));
+        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
+    }
+
+    private List<ItemStack> prepareRabbitLoot() {
+        List<Material> customLoot = Collections.singletonList(RABBIT_SPAWN_EGG);
+        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
     }
 
     private List<ItemStack> addCurrencyItem() {

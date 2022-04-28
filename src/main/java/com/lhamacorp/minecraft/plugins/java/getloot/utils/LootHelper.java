@@ -15,7 +15,7 @@ import static com.lhamacorp.minecraft.plugins.java.getloot.utils.RandomHelper.ra
 
 public class LootHelper {
 
-    private static HashMap<Rarity, List<Material>> RARITY_LISTS = new HashMap<Rarity, List<Material>>() {{
+    private static final HashMap<Rarity, List<Material>> RARITY_LISTS = new HashMap<Rarity, List<Material>>() {{
         put(Rarity.VERY_COMMON, VERY_COMMON_ITEMS);
         put(Rarity.COMMON, COMMON_ITEMS);
         put(Rarity.RARE, RARE_ITEMS);
