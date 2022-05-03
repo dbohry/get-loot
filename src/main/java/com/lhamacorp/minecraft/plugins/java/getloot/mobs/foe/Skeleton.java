@@ -4,6 +4,7 @@ import com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity;
 import com.lhamacorp.minecraft.plugins.java.getloot.mobs.Mob;
 import com.lhamacorp.minecraft.plugins.java.getloot.utils.LootHelper;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -12,10 +13,16 @@ import java.util.List;
 
 import static com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity.CUSTOM;
 import static org.bukkit.Material.*;
+import static org.bukkit.entity.EntityType.SKELETON;
 
 public class Skeleton implements Mob {
 
   private final LootHelper helper = new LootHelper();
+
+  @Override
+  public boolean isRightMob(EntityType type) {
+    return type == SKELETON;
+  }
 
   public List<ItemStack> prepareLoot() {
     List<ItemStack> loot = new ArrayList<>();

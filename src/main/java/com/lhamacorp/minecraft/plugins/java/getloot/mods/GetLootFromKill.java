@@ -1,6 +1,7 @@
 package com.lhamacorp.minecraft.plugins.java.getloot.mods;
 
 import com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity;
+import com.lhamacorp.minecraft.plugins.java.getloot.mobs.Mob;
 import com.lhamacorp.minecraft.plugins.java.getloot.mobs.animals.*;
 import com.lhamacorp.minecraft.plugins.java.getloot.mobs.foe.*;
 import com.lhamacorp.minecraft.plugins.java.getloot.utils.LootHelper;
@@ -11,85 +12,35 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GetLootFromKill implements Listener {
 
   private final LootHelper helper = new LootHelper();
-  private final Villager villager = new Villager();
-  private final Pillager pillager = new Pillager();
-  private final Zoombie zoombie = new Zoombie();
-  private final Skeleton skeleton = new Skeleton();
-  private final Creeper creeper = new Creeper();
-  private final Spider spider = new Spider();
-  private final Witch witch = new Witch();
-  private final Enderman enderman = new Enderman();
-  private final Guardian guardian = new Guardian();
-  private final ElderGuardian elderGuardian = new ElderGuardian();
-
-  private final Chicken chicken = new Chicken();
-  private final Pig pig = new Pig();
-  private final Cow cow = new Cow();
-  private final Sheep sheep = new Sheep();
-  private final Rabbit rabbit = new Rabbit();
+  private final List<Mob> mobs = Arrays.asList(
+      new Chicken(), new Cow(), new Pig(), new Rabbit(), new Sheep(),
+      new Creeper(),
+      new ElderGuardian(),
+      new Enderman(),
+      new Guardian(),
+      new Pillager(),
+      new Skeleton(),
+      new Spider(),
+      new Villager(),
+      new Witch(),
+      new Zombie(),
+      new Ravager()
+  );
 
   @EventHandler
   public void onKill(EntityDeathEvent event) {
     LivingEntity creature = event.getEntity();
 
-    switch (creature.getType()) {
-      case VILLAGER:
-      case ZOMBIE_VILLAGER:
-        spawnItems(creature, villager.prepareLoot());
-        break;
-      case RAVAGER:
-      case EVOKER:
-      case ILLUSIONER:
-      case VINDICATOR:
-      case PILLAGER:
-        spawnItems(creature, pillager.prepareLoot());
-        break;
-      case ZOMBIE:
-      case DROWNED:
-        spawnItems(creature, zoombie.prepareLoot());
-        break;
-      case SKELETON:
-        spawnItems(creature, skeleton.prepareLoot());
-        break;
-      case CREEPER:
-        spawnItems(creature, creeper.prepareLoot());
-        break;
-      case SPIDER:
-        spawnItems(creature, spider.prepareLoot());
-        break;
-      case WITCH:
-        spawnItems(creature, witch.prepareLoot());
-        break;
-      case ENDERMAN:
-        spawnItems(creature, enderman.prepareLoot());
-        break;
-      case GUARDIAN:
-        spawnItems(creature, guardian.prepareLoot());
-        break;
-      case ELDER_GUARDIAN:
-        spawnItems(creature, elderGuardian.prepareLoot());
-        break;
-      case CHICKEN:
-        spawnItems(creature, chicken.prepareLoot());
-        break;
-      case PIG:
-        spawnItems(creature, pig.prepareLoot());
-        break;
-      case COW:
-        spawnItems(creature, cow.prepareLoot());
-        break;
-      case SHEEP:
-        spawnItems(creature, sheep.prepareLoot());
-        break;
-      case RABBIT:
-        spawnItems(creature, rabbit.prepareLoot());
-        break;
-    }
+    mobs.stream()
+        .filter(mob -> mob.isRightMob(creature.getType()))
+        .findFirst()
+        .ifPresent(mob -> spawnItems(creature, mob.prepareLoot()));
   }
 
   private List<ItemStack> addCurrencyItem() {
