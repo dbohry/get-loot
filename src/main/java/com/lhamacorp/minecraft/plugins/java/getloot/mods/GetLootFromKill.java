@@ -19,7 +19,7 @@ public class GetLootFromKill implements Listener {
 
     private final LootHelper helper = new LootHelper();
     private final List<Mob> mobs = Arrays.asList(
-        new Chicken(), new Cow(), new Pig(), new Rabbit(), new Sheep(),
+        new Chicken(), new Cow(), new Pig(), new Rabbit(), new Sheep(), new Bee(),
         new Creeper(),
         new ElderGuardian(),
         new Enderman(),
