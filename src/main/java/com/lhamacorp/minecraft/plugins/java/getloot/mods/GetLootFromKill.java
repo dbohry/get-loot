@@ -17,50 +17,50 @@ import java.util.List;
 
 public class GetLootFromKill implements Listener {
 
-  private final LootHelper helper = new LootHelper();
-  private final List<Mob> mobs = Arrays.asList(
-      new Chicken(), new Cow(), new Pig(), new Rabbit(), new Sheep(),
-      new Creeper(),
-      new ElderGuardian(),
-      new Enderman(),
-      new Guardian(),
-      new Pillager(),
-      new Skeleton(),
-      new Spider(),
-      new Villager(),
-      new Witch(),
-      new Zombie(),
-      new Ravager()
-  );
+    private final LootHelper helper = new LootHelper();
+    private final List<Mob> mobs = Arrays.asList(
+        new Chicken(), new Cow(), new Pig(), new Rabbit(), new Sheep(),
+        new Creeper(),
+        new ElderGuardian(),
+        new Enderman(),
+        new Guardian(),
+        new Pillager(),
+        new Skeleton(),
+        new Spider(),
+        new Villager(),
+        new Witch(),
+        new Zombie(),
+        new Ravager()
+    );
 
-  @EventHandler
-  public void onKill(EntityDeathEvent event) {
-    LivingEntity creature = event.getEntity();
+    @EventHandler
+    public void onKill(EntityDeathEvent event) {
+        LivingEntity creature = event.getEntity();
 
-    mobs.stream()
-        .filter(mob -> mob.isRightMob(creature.getType()))
-        .findFirst()
-        .ifPresent(mob -> spawnItems(creature, mob.prepareLoot()));
-  }
-
-  private List<ItemStack> addCurrencyItem() {
-    List<ItemStack> loot = new ArrayList<>();
-    loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1));
-    loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1));
-
-    return loot;
-  }
-
-  private void spawnItems(LivingEntity entity, List<ItemStack> items) {
-    if (items.isEmpty()) return;
-
-    items.addAll(addCurrencyItem());
-
-    for (ItemStack item : items) {
-      entity
-          .getWorld()
-          .dropItemNaturally(entity.getLocation(), item);
+        mobs.stream()
+            .filter(mob -> mob.isRightMob(creature.getType()))
+            .findFirst()
+            .ifPresent(mob -> spawnItems(creature, mob.prepareLoot()));
     }
-  }
+
+    private List<ItemStack> addCurrencyItem() {
+        List<ItemStack> loot = new ArrayList<>();
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1));
+
+        return loot;
+    }
+
+    private void spawnItems(LivingEntity entity, List<ItemStack> items) {
+        if (items.isEmpty()) return;
+
+        items.addAll(addCurrencyItem());
+
+        for (ItemStack item : items) {
+            entity
+                .getWorld()
+                .dropItemNaturally(entity.getLocation(), item);
+        }
+    }
 
 }
