@@ -1,9 +1,10 @@
 package com.lhamacorp.minecraft.plugins.java.getloot.mods;
 
 import com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity;
+import com.lhamacorp.minecraft.plugins.java.getloot.mobs.Mob;
+import com.lhamacorp.minecraft.plugins.java.getloot.mobs.animals.*;
+import com.lhamacorp.minecraft.plugins.java.getloot.mobs.foe.*;
 import com.lhamacorp.minecraft.plugins.java.getloot.utils.LootHelper;
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,287 +13,34 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-
-import static com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity.CUSTOM;
-import static org.bukkit.Material.*;
 
 public class GetLootFromKill implements Listener {
 
     private final LootHelper helper = new LootHelper();
+    private final List<Mob> mobs = Arrays.asList(
+        new Chicken(), new Cow(), new Pig(), new Rabbit(), new Sheep(), new Bee(),
+        new Creeper(),
+        new ElderGuardian(),
+        new Enderman(),
+        new Guardian(),
+        new Pillager(),
+        new Skeleton(),
+        new Spider(),
+        new Villager(),
+        new Witch(),
+        new Zombie(),
+        new Ravager()
+    );
 
     @EventHandler
     public void onKill(EntityDeathEvent event) {
         LivingEntity creature = event.getEntity();
 
-        switch (creature.getType()) {
-            case VILLAGER:
-            case ZOMBIE_VILLAGER:
-                spawnItems(creature, prepareVillagerLoot());
-                break;
-            case PILLAGER:
-                spawnItems(creature, preparePillagerLoot());
-                break;
-            case ZOMBIE:
-            case DROWNED:
-                spawnItems(creature, prepareZombieLoot());
-                break;
-            case SKELETON:
-                spawnItems(creature, prepareSkeletonLoot());
-                break;
-            case CREEPER:
-                spawnItems(creature, prepareCreeperLoot());
-                break;
-            case SPIDER:
-                spawnItems(creature, prepareSpiderLoot());
-                break;
-            case WITCH:
-                spawnItems(creature, prepareWitchLoot());
-                break;
-            case ENDERMAN:
-                spawnItems(creature, prepareEndermanLoot());
-                break;
-            case GUARDIAN:
-                spawnItems(creature, prepareGuardianLoot());
-                break;
-            case ELDER_GUARDIAN:
-                spawnItems(creature, prepareElderGuardianLoot());
-                break;
-            case CHICKEN:
-                spawnItems(creature, prepareChickenLoot());
-                break;
-            case PIG:
-                spawnItems(creature, preparePigLoot());
-                break;
-            case COW:
-                spawnItems(creature, prepareCowLoot());
-                break;
-            case SHEEP:
-                spawnItems(creature, prepareSheepLoot());
-                break;
-            case RABBIT:
-                spawnItems(creature, prepareRabbitLoot());
-                break;
-        }
-    }
-
-    private List<ItemStack> prepareVillagerLoot() {
-        List<ItemStack> loot = new ArrayList<>();
-
-        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.08f));
-        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1.05f));
-
-        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.08f));
-        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.05f));
-
-        return loot;
-    }
-
-    private List<ItemStack> preparePillagerLoot() {
-        List<ItemStack> loot = new ArrayList<>();
-
-        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.08f));
-        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1.05f));
-        loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
-
-        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.08f));
-        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.05f));
-
-        List<Material> customItems = Arrays.asList(
-                ARROW,
-                SPECTRAL_ARROW,
-                TIPPED_ARROW,
-                CROSSBOW,
-                BOW
-        );
-
-        loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
-
-        return loot;
-    }
-
-    private List<ItemStack> prepareZombieLoot() {
-        List<ItemStack> loot = new ArrayList<>();
-
-        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.COMMON, 4, 1));
-        loot.addAll(helper.createLoot(Rarity.RARE, 1, 1));
-
-        List<Material> customItems = Arrays.asList(
-                MELON_SEEDS,
-                WHEAT_SEEDS,
-                PUMPKIN_SEEDS,
-                APPLE,
-                POTATO,
-                CARROT,
-                SWEET_BERRIES,
-                BEETROOT,
-                BEETROOT_SEEDS
-        );
-
-        loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
-
-        return loot;
-    }
-
-    private List<ItemStack> prepareSpiderLoot() {
-        List<ItemStack> loot = new ArrayList<>();
-
-        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.COMMON, 4, 1));
-        loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.010f));
-        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1));
-
-        List<Material> customItems = Arrays.asList(
-                SPIDER_SPAWN_EGG,
-                COBWEB
-        );
-
-        loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
-
-        return loot;
-    }
-
-    private List<ItemStack> prepareSkeletonLoot() {
-        List<ItemStack> loot = new ArrayList<>();
-
-        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.025f));
-        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1.015f));
-
-        List<Material> customItems = Arrays.asList(
-                ARROW,
-                SPECTRAL_ARROW,
-                TIPPED_ARROW,
-                CROSSBOW,
-                BOW
-        );
-
-        loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
-
-        return loot;
-    }
-
-    private List<ItemStack> prepareCreeperLoot() {
-        List<ItemStack> loot = new ArrayList<>();
-
-        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.030f));
-        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1.020f));
-
-        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.30f));
-
-        return loot;
-    }
-
-    private List<ItemStack> prepareEndermanLoot() {
-        List<ItemStack> loot = new ArrayList<>();
-
-        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.040f));
-        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 3, 1.025f));
-        loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
-
-        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.040f));
-        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.025f));
-
-        return loot;
-    }
-
-    private List<ItemStack> prepareGuardianLoot() {
-        List<ItemStack> loot = new ArrayList<>();
-
-        loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.05f));
-
-        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.045f));
-        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.030f));
-
-        return loot;
-    }
-
-    private List<ItemStack> prepareElderGuardianLoot() {
-        List<ItemStack> loot = new ArrayList<>();
-
-        loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.10f));
-
-        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.050f));
-        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.035f));
-
-        return loot;
-    }
-
-    private List<ItemStack> prepareWitchLoot() {
-        List<ItemStack> loot = new ArrayList<>();
-
-        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
-        loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.045f));
-        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 3, 1.030f));
-        loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
-
-        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.045f));
-        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.030f));
-
-        List<Material> customItems = Arrays.asList(
-                WOODEN_SWORD,
-                STONE_SWORD,
-                IRON_SWORD,
-                DIAMOND_SWORD
-        );
-
-        Collections.shuffle(customItems);
-        List<ItemStack> customLoot = helper.createLoot(CUSTOM, 1, 1, customItems);
-
-        List<Enchantment> enchantments = Arrays.asList(
-                Enchantment.FIRE_ASPECT,
-                Enchantment.DAMAGE_ALL
-        );
-
-        customLoot.forEach(item -> {
-            Collections.shuffle(enchantments);
-            if (enchantments.stream().findFirst().isPresent()) {
-                item.addEnchantment(enchantments.stream().findFirst().get(), 1);
-            } else {
-                System.out.println("impossible to get item");
-            }
-        });
-
-        loot.addAll(customLoot);
-
-        return loot;
-    }
-
-    private List<ItemStack> prepareChickenLoot() {
-        List<Material> customLoot = Collections.singletonList(Material.CHICKEN_SPAWN_EGG);
-        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
-    }
-
-    private List<ItemStack> preparePigLoot() {
-        List<Material> customLoot = Collections.singletonList(Material.PIG_SPAWN_EGG);
-        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
-    }
-
-    private List<ItemStack> prepareCowLoot() {
-        List<Material> customLoot = Collections.singletonList(Material.COW_SPAWN_EGG);
-        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
-    }
-
-    private List<ItemStack> prepareSheepLoot() {
-        List<Material> customLoot = Collections.singletonList(Material.SHEEP_SPAWN_EGG);
-        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
-    }
-
-    private List<ItemStack> prepareRabbitLoot() {
-        List<Material> customLoot = Collections.singletonList(RABBIT_SPAWN_EGG);
-        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
+        mobs.stream()
+            .filter(mob -> mob.isRightMob(creature.getType()))
+            .findFirst()
+            .ifPresent(mob -> spawnItems(creature, mob.prepareLoot()));
     }
 
     private List<ItemStack> addCurrencyItem() {
@@ -310,8 +58,8 @@ public class GetLootFromKill implements Listener {
 
         for (ItemStack item : items) {
             entity
-                    .getWorld()
-                    .dropItemNaturally(entity.getLocation(), item);
+                .getWorld()
+                .dropItemNaturally(entity.getLocation(), item);
         }
     }
 
