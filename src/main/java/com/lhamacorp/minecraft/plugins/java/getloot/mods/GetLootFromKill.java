@@ -42,6 +42,10 @@ public class GetLootFromKill implements Listener {
       case ZOMBIE_VILLAGER:
         spawnItems(creature, villager.prepareLoot());
         break;
+      case RAVAGER:
+      case EVOKER:
+      case ILLUSIONER:
+      case VINDICATOR:
       case PILLAGER:
         spawnItems(creature, pillager.prepareLoot());
         break;
