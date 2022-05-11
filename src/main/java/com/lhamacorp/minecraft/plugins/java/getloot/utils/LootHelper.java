@@ -72,7 +72,7 @@ public class LootHelper {
         Collections.shuffle(RARITY_LISTS.get(rarity));
         List<ItemStack> stack = new ArrayList<>();
         for (int i = 0; i <= tries; i++) {
-            if (shouldAddToLoot(rarity, multiplier) && stack.size() < 1) {
+            if (shouldAddItemToLoot(rarity, multiplier) && stack.size() < 1) {
                 RARITY_LISTS.get(rarity).stream()
                         .findFirst()
                         .ifPresent(item -> stack.add(new ItemStack(item, 1)));
@@ -82,7 +82,7 @@ public class LootHelper {
         return stack;
     }
 
-    private boolean shouldAddToLoot(Rarity rarity, float multiplier) {
+    private boolean shouldAddItemToLoot(Rarity rarity, float multiplier) {
         float probability = (float) (random() / 2) * multiplier;
         return probability > rarity.getRarity();
     }

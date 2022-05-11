@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity.COMMON_CURRENCY;
+import static com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity.RARE_CURRENCY;
+
 public class GetLootFromKill implements Listener {
 
     private final LootHelper helper = new LootHelper();
@@ -40,23 +43,23 @@ public class GetLootFromKill implements Listener {
         mobs.stream()
             .filter(mob -> mob.isRightMob(creature.getType()))
             .findFirst()
-            .ifPresent(mob -> spawnItems(creature, mob.prepareLoot()));
+            .ifPresent(mob -> spawnLoot(creature, mob.prepareLoot()));
     }
 
     private List<ItemStack> addCurrencyItem() {
-        List<ItemStack> loot = new ArrayList<>();
-        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1));
-        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1));
+        List<ItemStack> currency = new ArrayList<>();
+        currency.addAll(helper.createLoot(COMMON_CURRENCY, 1, 1));
+        currency.addAll(helper.createLoot(RARE_CURRENCY, 1, 1));
 
-        return loot;
+        return currency;
     }
 
-    private void spawnItems(LivingEntity entity, List<ItemStack> items) {
-        if (items.isEmpty()) return;
+    private void spawnLoot(LivingEntity entity, List<ItemStack> loot) {
+        if (loot.isEmpty()) return;
 
-        items.addAll(addCurrencyItem());
+        loot.addAll(addCurrencyItem());
 
-        for (ItemStack item : items) {
+        for (ItemStack item : loot) {
             entity
                 .getWorld()
                 .dropItemNaturally(entity.getLocation(), item);
