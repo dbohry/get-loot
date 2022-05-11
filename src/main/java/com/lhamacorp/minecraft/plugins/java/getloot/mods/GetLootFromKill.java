@@ -1,6 +1,5 @@
 package com.lhamacorp.minecraft.plugins.java.getloot.mods;
 
-import com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity;
 import com.lhamacorp.minecraft.plugins.java.getloot.mobs.Mob;
 import com.lhamacorp.minecraft.plugins.java.getloot.mobs.animals.*;
 import com.lhamacorp.minecraft.plugins.java.getloot.mobs.foe.*;
@@ -22,7 +21,12 @@ public class GetLootFromKill implements Listener {
 
     private final LootHelper helper = new LootHelper();
     private final List<Mob> mobs = Arrays.asList(
-        new Chicken(), new Cow(), new Pig(), new Rabbit(), new Sheep(), new Bee(),
+        new Chicken(),
+        new Cow(),
+        new Pig(),
+        new Rabbit(),
+        new Sheep(),
+        new Bee(),
         new Creeper(),
         new ElderGuardian(),
         new Enderman(),
