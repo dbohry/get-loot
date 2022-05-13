@@ -8,13 +8,12 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity.CUSTOM;
-import static org.bukkit.Material.*;
+import static org.bukkit.Material.BEEHIVE;
+import static org.bukkit.Material.BEE_SPAWN_EGG;
 import static org.bukkit.entity.EntityType.BEE;
-import static org.bukkit.entity.EntityType.SHEEP;
 
 public class Bee implements Mob {
 
