@@ -3,11 +3,13 @@
 Is a Minecraft Mod to make it easy to farm items by killing monsters.
 
 ## Requirements
+
 Spigot >= 1.8.2
 
 ## Current lootable mobs
 
 ### Enemies
+
 - Spiders
 - Zombies
 - Drowned
@@ -34,12 +36,14 @@ Spigot >= 1.8.2
 Basically this mod enables loot to drop from mobs adding more fun to your gameplay.
 The rarity change depending on how hard/rare is the mob.
 
-For instance, since the `Zombie` is very easy to find and very easy to kill it has a very small chance to drop `rare` items. 
+For instance, since the `Zombie` is very easy to find and very easy to kill it has a very small chance to drop `rare`
+items.
 Unlike the `Witch` or `Enderman` which has a bigger chance to drop`rare` items and can even drop `very rare` items.
 
 ## Categories and Items
 
 Very Common:
+
 ```
 LEATHER_HELMET,
 LEATHER_CHESTPLATE,
@@ -60,6 +64,7 @@ CARROT
 ```
 
 Common:
+
 ```
 CHAINMAIL_BOOTS,
 CHAINMAIL_CHESTPLATE,
@@ -80,6 +85,7 @@ PAPER
 ```
 
 Rare:
+
 ```
 IRON_HELMET,
 IRON_CHESTPLATE,
@@ -102,6 +108,7 @@ IRON_HORSE_ARMOR
 ```
 
 Very rare:
+
 ```
 EMERALD,
 GOLDEN_HELMET,
@@ -133,6 +140,7 @@ DIAMOND_HORSE_ARMOR
 ```
 
 Epic:
+
 ```
 NETHERITE_HELMET,
 NETHERITE_CHESTPLATE,
