@@ -5,7 +5,7 @@ Causing monsters to drop items according to their rarity and adding a chance for
 
 ## Requirements
 
-Java 17 or higher
+Java 17 or higher  
 Spigot 1.9 or higher
 
 ## Current lootable mobs
