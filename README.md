@@ -1,10 +1,12 @@
 # Get-Loot
 
-Is a Minecraft Mod to make it easy to farm items by killing monsters.
+GetLoot is a Minecraft Mod that makes farming items easy by killing monsters. 
+Causing monsters to drop items according to their rarity and adding a chance for animals to drop eggs.
 
 ## Requirements
 
-Spigot >= 1.8.2
+Java 17 or higher
+Spigot 1.9 or higher
 
 ## Current lootable mobs
 
