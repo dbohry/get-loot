@@ -1,4 +1,5 @@
 .idea
 target
 *.iml
-server
+server/**
+/server/CraftBukkit/src/main/java/net/minecraft/

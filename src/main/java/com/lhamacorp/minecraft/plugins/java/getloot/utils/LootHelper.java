@@ -9,20 +9,19 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity.*;
-import static com.lhamacorp.minecraft.plugins.java.getloot.utils.Items.*;
+import static com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity.CUSTOM;
 import static com.lhamacorp.minecraft.plugins.java.getloot.utils.RandomHelper.random;
 
 public class LootHelper {
 
     private static final HashMap<Rarity, List<Material>> RARITY_LISTS = new HashMap<>() {{
-        put(VERY_COMMON, VERY_COMMON_ITEMS);
-        put(COMMON, COMMON_ITEMS);
-        put(Rarity.RARE, RARE_ITEMS);
-        put(Rarity.VERY_RARE, VERY_RARE_ITEMS);
-        put(Rarity.EPIC, EPIC_ITEMS);
-        put(Rarity.COMMON_CURRENCY, COMMON_CURRENCY_ITEMS);
-        put(Rarity.RARE_CURRENCY, RARE_CURRENCY_ITEMS);
+        put(Rarity.VERY_COMMON, Items.VERY_COMMON_ITEMS);
+        put(Rarity.COMMON, Items.COMMON_ITEMS);
+        put(Rarity.RARE, Items.RARE_ITEMS);
+        put(Rarity.VERY_RARE, Items.VERY_RARE_ITEMS);
+        put(Rarity.EPIC, Items.EPIC_ITEMS);
+        put(Rarity.COMMON_CURRENCY, Items.COMMON_CURRENCY_ITEMS);
+        put(Rarity.RARE_CURRENCY, Items.RARE_CURRENCY_ITEMS);
     }};
 
     public List<ItemStack> createLoot(Rarity rarity, int tries, float multiplier, List<Material> customLoot) {
@@ -43,6 +42,13 @@ public class LootHelper {
         }
 
         return loot;
+    }
+
+    public ItemStack createLoot(Rarity rarity) {
+        List<Material> possibleItems = RARITY_LISTS.get(rarity);
+        Collections.shuffle(possibleItems);
+
+        return new ItemStack(possibleItems.get(0), 1);
     }
 
     private List<ItemStack> buildItemStack(Rarity rarity, int tries, float multiplier) {
