@@ -24,6 +24,7 @@ public class ElderGuardian implements Mob {
         List<ItemStack> loot = new ArrayList<>();
 
         loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.10f));
+
         loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.050f));
         loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.035f));
 

@@ -45,6 +45,8 @@ public class Witch implements Mob {
                 DIAMOND_SWORD
         );
 
+        //adds chance of dropping enchanted items
+
         Collections.shuffle(customItems);
         List<ItemStack> customLoot = helper.createLoot(CUSTOM, 1, 1, customItems);
 
