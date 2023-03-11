@@ -18,29 +18,29 @@ import static org.bukkit.entity.EntityType.SPIDER;
 
 public class Spider implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == SPIDER;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == SPIDER;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<ItemStack> loot = new ArrayList<>();
+    public List<ItemStack> prepareLoot() {
+        List<ItemStack> loot = new ArrayList<>();
 
-    loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-    loot.addAll(helper.createLoot(Rarity.COMMON, 4, 1));
-    loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.010f));
-    loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1));
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 4, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.010f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1));
 
-    List<Material> customItems = Arrays.asList(
-        SPIDER_SPAWN_EGG,
-        COBWEB
-    );
+        List<Material> customItems = Arrays.asList(
+                SPIDER_SPAWN_EGG,
+                COBWEB
+        );
 
-    loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
+        loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
 
-    return loot;
-  }
+        return loot;
+    }
 
 }

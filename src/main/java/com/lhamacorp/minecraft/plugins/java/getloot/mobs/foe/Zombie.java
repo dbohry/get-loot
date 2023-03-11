@@ -17,35 +17,35 @@ import static org.bukkit.entity.EntityType.ZOMBIE;
 
 public class Zombie implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == ZOMBIE;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == ZOMBIE;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<ItemStack> loot = new ArrayList<>();
+    public List<ItemStack> prepareLoot() {
+        List<ItemStack> loot = new ArrayList<>();
 
-    loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-    loot.addAll(helper.createLoot(Rarity.COMMON, 4, 1));
-    loot.addAll(helper.createLoot(Rarity.RARE, 1, 1));
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 4, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 1, 1));
 
-    List<Material> customItems = Arrays.asList(
-        MELON_SEEDS,
-        WHEAT_SEEDS,
-        PUMPKIN_SEEDS,
-        APPLE,
-        POTATO,
-        CARROT,
-        SWEET_BERRIES,
-        BEETROOT,
-        BEETROOT_SEEDS
-    );
+        List<Material> customItems = Arrays.asList(
+                MELON_SEEDS,
+                WHEAT_SEEDS,
+                PUMPKIN_SEEDS,
+                APPLE,
+                POTATO,
+                CARROT,
+                SWEET_BERRIES,
+                BEETROOT,
+                BEETROOT_SEEDS
+        );
 
-    loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
+        loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
 
-    return loot;
-  }
+        return loot;
+    }
 
 }

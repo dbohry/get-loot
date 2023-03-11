@@ -13,22 +13,22 @@ import static org.bukkit.entity.EntityType.GUARDIAN;
 
 public class Guardian implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == GUARDIAN;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == GUARDIAN;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<ItemStack> loot = new ArrayList<>();
+    public List<ItemStack> prepareLoot() {
+        List<ItemStack> loot = new ArrayList<>();
 
-    loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.05f));
+        loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.05f));
 
-    loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.045f));
-    loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.030f));
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.045f));
+        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.030f));
 
-    return loot;
-  }
+        return loot;
+    }
 
 }

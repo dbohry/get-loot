@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface Mob {
 
-  boolean isRightMob(EntityType type);
+    boolean isRightMob(EntityType type);
 
-  List<ItemStack> prepareLoot();
+    List<ItemStack> prepareLoot();
 
 }

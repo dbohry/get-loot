@@ -13,22 +13,22 @@ import static org.bukkit.entity.EntityType.RAVAGER;
 
 public class Ravager implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == RAVAGER;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == RAVAGER;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<ItemStack> loot = new ArrayList<>();
+    public List<ItemStack> prepareLoot() {
+        List<ItemStack> loot = new ArrayList<>();
 
-    loot.addAll(helper.createLoot(EPIC, 1, 1.05f));
+        loot.addAll(helper.createLoot(EPIC, 1, 1.05f));
 
-    loot.addAll(helper.createLoot(COMMON_CURRENCY, 1, 1.045f));
-    loot.addAll(helper.createLoot(RARE_CURRENCY, 1, 1.030f));
+        loot.addAll(helper.createLoot(COMMON_CURRENCY, 1, 1.045f));
+        loot.addAll(helper.createLoot(RARE_CURRENCY, 1, 1.030f));
 
-    return loot;
-  }
+        return loot;
+    }
 
 }

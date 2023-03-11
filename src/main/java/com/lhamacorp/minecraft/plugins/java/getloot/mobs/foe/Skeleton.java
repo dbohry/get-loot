@@ -17,32 +17,32 @@ import static org.bukkit.entity.EntityType.SKELETON;
 
 public class Skeleton implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == SKELETON;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == SKELETON;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<ItemStack> loot = new ArrayList<>();
+    public List<ItemStack> prepareLoot() {
+        List<ItemStack> loot = new ArrayList<>();
 
-    loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-    loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
-    loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.025f));
-    loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1.015f));
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.025f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1.015f));
 
-    List<Material> customItems = Arrays.asList(
-        ARROW,
-        SPECTRAL_ARROW,
-        TIPPED_ARROW,
-        CROSSBOW,
-        BOW
-    );
+        List<Material> customItems = Arrays.asList(
+                ARROW,
+                SPECTRAL_ARROW,
+                TIPPED_ARROW,
+                CROSSBOW,
+                BOW
+        );
 
-    loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
+        loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
 
-    return loot;
-  }
+        return loot;
+    }
 
 }

@@ -19,39 +19,39 @@ import static org.bukkit.entity.EntityType.*;
 
 public class Pillager implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == PILLAGER
-        || type == VINDICATOR
-        || type == ILLUSIONER
-        || type == EVOKER;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == PILLAGER
+                || type == VINDICATOR
+                || type == ILLUSIONER
+                || type == EVOKER;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<ItemStack> loot = new ArrayList<>();
+    public List<ItemStack> prepareLoot() {
+        List<ItemStack> loot = new ArrayList<>();
 
-    loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-    loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
-    loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.08f));
-    loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1.05f));
-    loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.08f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1.05f));
+        loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
 
-    loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.08f));
-    loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.05f));
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.08f));
+        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.05f));
 
-    List<Material> customItems = Arrays.asList(
-        ARROW,
-        SPECTRAL_ARROW,
-        TIPPED_ARROW,
-        CROSSBOW,
-        BOW
-    );
+        List<Material> customItems = Arrays.asList(
+                ARROW,
+                SPECTRAL_ARROW,
+                TIPPED_ARROW,
+                CROSSBOW,
+                BOW
+        );
 
-    loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
+        loot.addAll(helper.createLoot(CUSTOM, 1, 1, customItems));
 
-    return loot;
-  }
+        return loot;
+    }
 
 }

@@ -8,15 +8,15 @@ import java.util.List;
 
 public class Model implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return false;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return false;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    return null;
-  }
+    public List<ItemStack> prepareLoot() {
+        return null;
+    }
 
 }

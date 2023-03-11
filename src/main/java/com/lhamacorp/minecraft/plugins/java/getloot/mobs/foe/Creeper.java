@@ -13,24 +13,24 @@ import static org.bukkit.entity.EntityType.CREEPER;
 
 public class Creeper implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == CREEPER;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == CREEPER;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<ItemStack> loot = new ArrayList<>();
+    public List<ItemStack> prepareLoot() {
+        List<ItemStack> loot = new ArrayList<>();
 
-    loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-    loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
-    loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.030f));
-    loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1.020f));
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.030f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1.020f));
 
-    loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.30f));
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.30f));
 
-    return loot;
-  }
+        return loot;
+    }
 
 }

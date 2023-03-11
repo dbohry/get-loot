@@ -13,26 +13,26 @@ import static org.bukkit.entity.EntityType.ENDERMAN;
 
 public class Enderman implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == ENDERMAN;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == ENDERMAN;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<ItemStack> loot = new ArrayList<>();
+    public List<ItemStack> prepareLoot() {
+        List<ItemStack> loot = new ArrayList<>();
 
-    loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-    loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
-    loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.040f));
-    loot.addAll(helper.createLoot(Rarity.VERY_RARE, 3, 1.025f));
-    loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.040f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 3, 1.025f));
+        loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
 
-    loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.040f));
-    loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.025f));
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.040f));
+        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.025f));
 
-    return loot;
-  }
+        return loot;
+    }
 
 }

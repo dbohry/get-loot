@@ -15,16 +15,16 @@ import static org.bukkit.entity.EntityType.SHEEP;
 
 public class Sheep implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == SHEEP;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == SHEEP;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<Material> customLoot = Collections.singletonList(Material.SHEEP_SPAWN_EGG);
-    return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
-  }
+    public List<ItemStack> prepareLoot() {
+        List<Material> customLoot = Collections.singletonList(Material.SHEEP_SPAWN_EGG);
+        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
+    }
 
 }

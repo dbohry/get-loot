@@ -19,52 +19,52 @@ import static org.bukkit.entity.EntityType.WITCH;
 
 public class Witch implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == WITCH;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == WITCH;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<ItemStack> loot = new ArrayList<>();
+    public List<ItemStack> prepareLoot() {
+        List<ItemStack> loot = new ArrayList<>();
 
-    loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
-    loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
-    loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.045f));
-    loot.addAll(helper.createLoot(Rarity.VERY_RARE, 3, 1.030f));
-    loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
+        loot.addAll(helper.createLoot(Rarity.VERY_COMMON, 5, 1));
+        loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
+        loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.045f));
+        loot.addAll(helper.createLoot(Rarity.VERY_RARE, 3, 1.030f));
+        loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
 
-    loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.045f));
-    loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.030f));
+        loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.045f));
+        loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.030f));
 
-    List<Material> customItems = Arrays.asList(
-        WOODEN_SWORD,
-        STONE_SWORD,
-        IRON_SWORD,
-        DIAMOND_SWORD
-    );
+        List<Material> customItems = Arrays.asList(
+                WOODEN_SWORD,
+                STONE_SWORD,
+                IRON_SWORD,
+                DIAMOND_SWORD
+        );
 
-    Collections.shuffle(customItems);
-    List<ItemStack> customLoot = helper.createLoot(CUSTOM, 1, 1, customItems);
+        Collections.shuffle(customItems);
+        List<ItemStack> customLoot = helper.createLoot(CUSTOM, 1, 1, customItems);
 
-    List<Enchantment> enchantments = Arrays.asList(
-        Enchantment.FIRE_ASPECT,
-        Enchantment.DAMAGE_ALL
-    );
+        List<Enchantment> enchantments = Arrays.asList(
+                Enchantment.FIRE_ASPECT,
+                Enchantment.DAMAGE_ALL
+        );
 
-    customLoot.forEach(item -> {
-      Collections.shuffle(enchantments);
-      if (enchantments.stream().findFirst().isPresent()) {
-        item.addEnchantment(enchantments.stream().findFirst().get(), 1);
-      } else {
-        System.out.println("impossible to get item");
-      }
-    });
+        customLoot.forEach(item -> {
+            Collections.shuffle(enchantments);
+            if (enchantments.stream().findFirst().isPresent()) {
+                item.addEnchantment(enchantments.stream().findFirst().get(), 1);
+            } else {
+                System.out.println("impossible to get item");
+            }
+        });
 
-    loot.addAll(customLoot);
+        loot.addAll(customLoot);
 
-    return loot;
-  }
+        return loot;
+    }
 
 }

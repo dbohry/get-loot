@@ -11,17 +11,17 @@ import static org.junit.Assert.assertTrue;
 
 public class LootFromCreeperTest {
 
-  private Creeper mob;
+    private Creeper mob;
 
-  @Before
-  public void setup() {
-    mob = new Creeper();
-  }
+    @Before
+    public void setup() {
+        mob = new Creeper();
+    }
 
-  @Test
-  public void shouldCreateLootFromMob() {
-    List<ItemStack> result = mob.prepareLoot();
-    assertTrue(result.size() > 0);
-  }
+    @Test
+    public void shouldCreateLootFromMob() {
+        List<ItemStack> result = mob.prepareLoot();
+        assertTrue(result.size() > 0);
+    }
 
 }

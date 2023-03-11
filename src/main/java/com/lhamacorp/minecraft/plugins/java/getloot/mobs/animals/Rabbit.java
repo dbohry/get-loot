@@ -16,16 +16,16 @@ import static org.bukkit.entity.EntityType.RABBIT;
 
 public class Rabbit implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == RABBIT;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == RABBIT;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<Material> customLoot = Collections.singletonList(RABBIT_SPAWN_EGG);
-    return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
-  }
+    public List<ItemStack> prepareLoot() {
+        List<Material> customLoot = Collections.singletonList(RABBIT_SPAWN_EGG);
+        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
+    }
 
 }

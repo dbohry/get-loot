@@ -15,31 +15,31 @@ import static org.junit.Assert.assertTrue;
 
 public class LootHelperTest {
 
-  private LootHelper helper;
+    private LootHelper helper;
 
-  @Before
-  public void setup() {
-    helper = new LootHelper();
-  }
+    @Before
+    public void setup() {
+        helper = new LootHelper();
+    }
 
-  @Test
-  public void shouldCreateLoot() {
-    List<ItemStack> result = helper.createLoot(COMMON, 1, 10f);
-    assertTrue(result.size() > 0);
-  }
+    @Test
+    public void shouldCreateLoot() {
+        List<ItemStack> result = helper.createLoot(COMMON, 1, 10f);
+        assertTrue(result.size() > 0);
+    }
 
-  @Test
-  public void shouldCreateLootWithCustom() {
-    List<Material> customItems = Arrays.asList(
-        WOODEN_SWORD,
-        STONE_SWORD,
-        IRON_SWORD,
-        DIAMOND_SWORD
-    );
+    @Test
+    public void shouldCreateLootWithCustom() {
+        List<Material> customItems = Arrays.asList(
+                WOODEN_SWORD,
+                STONE_SWORD,
+                IRON_SWORD,
+                DIAMOND_SWORD
+        );
 
-    List<ItemStack> result = helper.createLoot(COMMON, 1, 10, customItems);
+        List<ItemStack> result = helper.createLoot(COMMON, 1, 10, customItems);
 
-    assertTrue(result.size() > 0);
-  }
+        assertTrue(result.size() > 0);
+    }
 
 }

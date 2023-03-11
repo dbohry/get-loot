@@ -15,16 +15,16 @@ import static org.bukkit.entity.EntityType.CHICKEN;
 
 public class Chicken implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == CHICKEN;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == CHICKEN;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<Material> customLoot = Collections.singletonList(Material.CHICKEN_SPAWN_EGG);
-    return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
-  }
+    public List<ItemStack> prepareLoot() {
+        List<Material> customLoot = Collections.singletonList(Material.CHICKEN_SPAWN_EGG);
+        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
+    }
 
 }

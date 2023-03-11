@@ -17,19 +17,19 @@ import static org.bukkit.entity.EntityType.BEE;
 
 public class Bee implements Mob {
 
-  private final LootHelper helper = new LootHelper();
+    private final LootHelper helper = new LootHelper();
 
-  @Override
-  public boolean isRightMob(EntityType type) {
-    return type == BEE;
-  }
+    @Override
+    public boolean isRightMob(EntityType type) {
+        return type == BEE;
+    }
 
-  public List<ItemStack> prepareLoot() {
-    List<Material> customLoot = Arrays.asList(
-        BEE_SPAWN_EGG,
-        BEEHIVE
-    );
-    return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
-  }
+    public List<ItemStack> prepareLoot() {
+        List<Material> customLoot = Arrays.asList(
+                BEE_SPAWN_EGG,
+                BEEHIVE
+        );
+        return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
+    }
 
 }

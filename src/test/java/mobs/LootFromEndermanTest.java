@@ -11,17 +11,17 @@ import static org.junit.Assert.assertTrue;
 
 public class LootFromEndermanTest {
 
-  private Enderman mob;
+    private Enderman mob;
 
-  @Before
-  public void setup() {
-    mob = new Enderman();
-  }
+    @Before
+    public void setup() {
+        mob = new Enderman();
+    }
 
-  @Test
-  public void shouldCreateLootFromMob() {
-    List<ItemStack> result = mob.prepareLoot();
-    assertTrue(result.size() > 0);
-  }
+    @Test
+    public void shouldCreateLootFromMob() {
+        List<ItemStack> result = mob.prepareLoot();
+        assertTrue(result.size() > 0);
+    }
 
 }
