@@ -29,6 +29,7 @@ public class GetLootFromKill implements Listener {
             new Bee(),
             new Spider(),
             new Zombie(),
+            new Slime(),
             new Skeleton(),
             new Creeper(),
             new Enderman(),
