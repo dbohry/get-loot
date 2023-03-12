@@ -30,7 +30,10 @@ public class ExchangeCurrency implements Listener {
                         .filter(Objects::nonNull)
                         .toList();
 
-                Block blockBelowChest = event.getInventory().getLocation().getBlock().getRelative(BlockFace.DOWN);
+                Block blockBelowChest = Objects.requireNonNull(event.getInventory().getLocation())
+                        .getBlock()
+                        .getRelative(BlockFace.DOWN);
+
                 if (chestItems.size() > 3 || blockBelowChest.getType() != Material.REDSTONE_BLOCK) {
                     return;
                 }
@@ -64,6 +67,10 @@ public class ExchangeCurrency implements Listener {
 
         if (materials.containsAll(List.of(Material.GOLD_INGOT, Material.IRON_INGOT))) {
             return 990;
+        }
+
+        if (materials.containsAll(List.of(Material.GOLD_NUGGET, Material.IRON_NUGGET))) {
+            return 950;
         }
 
         return 0;
