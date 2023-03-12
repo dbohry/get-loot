@@ -35,9 +35,9 @@ public class ExchangeCurrency implements Listener {
                     return;
                 }
 
-                Rarity rarity = defineRarityScore(chestItems.stream().map(ItemStack::getType).collect(toSet()));
+                int rarityScore = defineRarityScore(chestItems.stream().map(ItemStack::getType).collect(toSet()));
 
-                if (rarity == null) {
+                if (rarityScore == 0) {
                     return;
                 }
 
@@ -46,21 +46,27 @@ public class ExchangeCurrency implements Listener {
                     event.getInventory().remove(item);
                 });
 
-                lootHelper.createLoot(rarity, 1, 1);
-                event.getPlayer().getInventory().addItem(lootHelper.createLoot(rarity));
-
+                event.getPlayer().getInventory().addItem(lootHelper.createLoot(Rarity.rarityFromScore(rarityScore)));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    public Rarity defineRarityScore(Set<Material> materials) {
-        if (materials.containsAll(List.of(Material.EMERALD, Material.LAPIS_LAZULI))) {
-            return Rarity.EPIC;
+    public int defineRarityScore(Set<Material> materials) {
+        if (materials.containsAll(List.of(Material.EMERALD, Material.LAPIS_LAZULI, Material.GOLD_INGOT))) {
+            return 1000;
         }
 
-        return null;
+        if (materials.containsAll(List.of(Material.EMERALD, Material.LAPIS_LAZULI))) {
+            return 999;
+        }
+
+        if (materials.containsAll(List.of(Material.GOLD_INGOT, Material.IRON_INGOT))) {
+            return 990;
+        }
+
+        return 0;
     }
 
 
