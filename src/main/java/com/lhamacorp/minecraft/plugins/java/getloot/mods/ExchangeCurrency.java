@@ -11,19 +11,19 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.stream.Collectors.toSet;
-import static org.bukkit.Material.*;
 
 public class ExchangeCurrency implements Listener {
 
     private final LootHelper lootHelper = new LootHelper();
 
     private static final int ZERO = 0;
+    private static final int MAX_RARITY_SCORE = 1000;
+    private static final int HIGH_RARITY_SCORE = 999;
+    private static final int MEDIUM_RARITY_SCORE = 990;
+    private static final int LOW_RARITY_SCORE = 950;
 
     @EventHandler
     public void onCloseChest(InventoryCloseEvent event) {
@@ -41,7 +41,7 @@ public class ExchangeCurrency implements Listener {
                     return;
                 }
 
-                int rarityScore = calculateRarityScore(chestItems.stream()
+                int rarityScore = calculateRarityScoreFromMaterials(chestItems.stream()
                         .map(ItemStack::getType)
                         .collect(toSet()));
 
@@ -56,24 +56,15 @@ public class ExchangeCurrency implements Listener {
         }
     }
 
-    public int calculateRarityScore(Set<Material> materials) {
-        if (materials.containsAll(List.of(EMERALD, LAPIS_LAZULI, GOLD_INGOT))) {
-            return 1000;
-        }
+    public int calculateRarityScoreFromMaterials(Set<Material> materials) {
+        Map<Set<Material>, Integer> rarityMap = Map.of(
+                Set.of(Material.EMERALD, Material.LAPIS_LAZULI, Material.GOLD_INGOT), MAX_RARITY_SCORE,
+                Set.of(Material.EMERALD, Material.LAPIS_LAZULI), HIGH_RARITY_SCORE,
+                Set.of(Material.GOLD_INGOT, Material.IRON_INGOT), MEDIUM_RARITY_SCORE,
+                Set.of(Material.GOLD_NUGGET, Material.IRON_NUGGET), LOW_RARITY_SCORE
+        );
 
-        if (materials.containsAll(List.of(EMERALD, LAPIS_LAZULI))) {
-            return 999;
-        }
-
-        if (materials.containsAll(List.of(GOLD_INGOT, IRON_INGOT))) {
-            return 990;
-        }
-
-        if (materials.containsAll(List.of(GOLD_NUGGET, IRON_NUGGET))) {
-            return 950;
-        }
-
-        return ZERO;
+        return rarityMap.getOrDefault(materials, ZERO);
     }
 
     private void exchangeChestItems(InventoryCloseEvent event, List<ItemStack> chestItems, int rarityScore) {

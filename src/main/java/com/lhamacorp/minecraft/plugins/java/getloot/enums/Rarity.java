@@ -1,8 +1,5 @@
 package com.lhamacorp.minecraft.plugins.java.getloot.enums;
 
-import java.util.Arrays;
-import java.util.List;
-
 public enum Rarity {
 
     VERY_COMMON(900),
@@ -25,19 +22,17 @@ public enum Rarity {
     }
 
     public static Rarity rarityFromScore(int score) {
-        List<Rarity> rarities = Arrays.stream(Rarity.values()).toList();
+        Rarity closestRarity = null;
+        int minDistance = Integer.MAX_VALUE;
 
-        int distance = Math.abs(rarities.get(0).getRarity() - score);
-        int i = 0;
-
-        for (int c = 1; c < rarities.size(); c++) {
-            int cdistance = Math.abs(rarities.get(c).getRarity() - score);
-            if (cdistance < distance) {
-                i = c;
-                distance = cdistance;
+        for (Rarity rarity : Rarity.values()) {
+            int distance = Math.abs(rarity.getRarity() - score);
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestRarity = rarity;
             }
         }
 
-        return rarities.get(i);
+        return closestRarity;
     }
 }
