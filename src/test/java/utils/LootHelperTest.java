@@ -11,7 +11,7 @@ import java.util.List;
 
 import static com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity.COMMON;
 import static org.bukkit.Material.*;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class LootHelperTest {
 
@@ -25,7 +25,7 @@ public class LootHelperTest {
     @Test
     public void shouldCreateLoot() {
         List<ItemStack> result = helper.createLoot(COMMON, 1, 10f);
-        assertTrue(result.size() > 0);
+        assertFalse(result.isEmpty());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class LootHelperTest {
 
         List<ItemStack> result = helper.createLoot(COMMON, 1, 10, customItems);
 
-        assertTrue(result.size() > 0);
+        assertFalse(result.isEmpty());
     }
 
 }

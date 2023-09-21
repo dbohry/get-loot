@@ -17,64 +17,84 @@ import java.util.Objects;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
+import static org.bukkit.Material.*;
 
 public class ExchangeCurrency implements Listener {
 
     private final LootHelper lootHelper = new LootHelper();
 
+    private static final int ZERO = 0;
+
     @EventHandler
     public void onCloseChest(InventoryCloseEvent event) {
         if (event.getInventory().getType().equals(InventoryType.CHEST)) {
             try {
-                List<ItemStack> chestItems = Arrays.stream(event.getInventory().getContents())
-                        .filter(Objects::nonNull)
-                        .toList();
+                Block blockBelowChest = getTypeBlockBelowChest(event);
 
-                Block blockBelowChest = Objects.requireNonNull(event.getInventory().getLocation())
-                        .getBlock()
-                        .getRelative(BlockFace.DOWN);
-
-                if (chestItems.size() > 3 || blockBelowChest.getType() != Material.REDSTONE_BLOCK) {
+                if (blockBelowChest.getType() != Material.REDSTONE_BLOCK) {
                     return;
                 }
 
-                int rarityScore = defineRarityScore(chestItems.stream().map(ItemStack::getType).collect(toSet()));
+                List<ItemStack> chestItems = getItemsFromChest(event);
 
-                if (rarityScore == 0) {
+                if (chestItems.size() > 3) {
                     return;
                 }
 
-                chestItems.forEach(item -> {
-                    event.getPlayer().getInventory().addItem(new ItemStack(item.getType(), item.getAmount() - 1));
-                    event.getInventory().remove(item);
-                });
+                int rarityScore = calculateRarityScore(chestItems.stream()
+                        .map(ItemStack::getType)
+                        .collect(toSet()));
 
-                event.getPlayer().getInventory().addItem(lootHelper.createLoot(Rarity.rarityFromScore(rarityScore)));
+                if (rarityScore == ZERO) {
+                    return;
+                }
+
+                exchangeChestItems(event, chestItems, rarityScore);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    public int defineRarityScore(Set<Material> materials) {
-        if (materials.containsAll(List.of(Material.EMERALD, Material.LAPIS_LAZULI, Material.GOLD_INGOT))) {
+    public int calculateRarityScore(Set<Material> materials) {
+        if (materials.containsAll(List.of(EMERALD, LAPIS_LAZULI, GOLD_INGOT))) {
             return 1000;
         }
 
-        if (materials.containsAll(List.of(Material.EMERALD, Material.LAPIS_LAZULI))) {
+        if (materials.containsAll(List.of(EMERALD, LAPIS_LAZULI))) {
             return 999;
         }
 
-        if (materials.containsAll(List.of(Material.GOLD_INGOT, Material.IRON_INGOT))) {
+        if (materials.containsAll(List.of(GOLD_INGOT, IRON_INGOT))) {
             return 990;
         }
 
-        if (materials.containsAll(List.of(Material.GOLD_NUGGET, Material.IRON_NUGGET))) {
+        if (materials.containsAll(List.of(GOLD_NUGGET, IRON_NUGGET))) {
             return 950;
         }
 
-        return 0;
+        return ZERO;
     }
 
+    private void exchangeChestItems(InventoryCloseEvent event, List<ItemStack> chestItems, int rarityScore) {
+        chestItems.forEach(item -> {
+            event.getPlayer().getInventory().addItem(new ItemStack(item.getType(), item.getAmount() - 1));
+            event.getInventory().remove(item);
+        });
+
+        event.getPlayer().getInventory().addItem(lootHelper.createLoot(Rarity.rarityFromScore(rarityScore)));
+    }
+
+    private static List<ItemStack> getItemsFromChest(InventoryCloseEvent event) {
+        return Arrays.stream(event.getInventory().getContents())
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
+    private static Block getTypeBlockBelowChest(InventoryCloseEvent event) {
+        return Objects.requireNonNull(event.getInventory().getLocation())
+                .getBlock()
+                .getRelative(BlockFace.DOWN);
+    }
 
 }

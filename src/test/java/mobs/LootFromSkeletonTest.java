@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class LootFromSkeletonTest {
 
@@ -23,7 +23,7 @@ public class LootFromSkeletonTest {
     @Test
     public void shouldCreateLootFromMob() {
         List<ItemStack> result = mob.prepareLoot();
-        assertTrue(result.size() > 0);
+        assertFalse(result.isEmpty());
     }
 
 }
