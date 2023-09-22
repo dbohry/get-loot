@@ -21,24 +21,36 @@ public class GetLootFromKill implements Listener {
 
     private final LootHelper helper = new LootHelper();
     private final List<Mob> mobs = Arrays.asList(
+            new Axolotl(),
+            new Bat(),
+            new Bee(),
+            new Camel(),
+            new Cat(),
             new Chicken(),
             new Cow(),
+            new Donkey(),
+            new Fox(),
+            new Goat(),
+            new Horse(),
+            new Llama(),
+            new Mule(),
             new Pig(),
             new Rabbit(),
             new Sheep(),
-            new Bee(),
             new Spider(),
-            new Zombie(),
+            new Wolf(),
+            new Creeper(),
+            new ElderGuardian(),
+            new Enderman(),
+            new Guardian(),
+            new Pillager(),
+            new Ravager(),
             new Slime(),
             new Skeleton(),
-            new Creeper(),
-            new Enderman(),
             new Witch(),
-            new Pillager(),
             new Villager(),
-            new Guardian(),
-            new ElderGuardian(),
-            new Ravager()
+            new Zombie(),
+            new ZombiePiglin()
     );
 
     @EventHandler

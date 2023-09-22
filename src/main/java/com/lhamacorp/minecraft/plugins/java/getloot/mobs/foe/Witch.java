@@ -34,7 +34,6 @@ public class Witch implements Mob {
         loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.045f));
         loot.addAll(helper.createLoot(Rarity.VERY_RARE, 3, 1.030f));
         loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
-
         loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.045f));
         loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.030f));
 

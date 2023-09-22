@@ -24,7 +24,6 @@ public class Ravager implements Mob {
         List<ItemStack> loot = new ArrayList<>();
 
         loot.addAll(helper.createLoot(EPIC, 1, 1.05f));
-
         loot.addAll(helper.createLoot(COMMON_CURRENCY, 1, 1.045f));
         loot.addAll(helper.createLoot(RARE_CURRENCY, 1, 1.030f));
 
