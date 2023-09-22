@@ -20,4 +20,19 @@ public enum Rarity {
     public int getRarity() {
         return rarity;
     }
+
+    public static Rarity rarityFromScore(int score) {
+        Rarity closestRarity = null;
+        int minDistance = Integer.MAX_VALUE;
+
+        for (Rarity rarity : Rarity.values()) {
+            int distance = Math.abs(rarity.getRarity() - score);
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestRarity = rarity;
+            }
+        }
+
+        return closestRarity;
+    }
 }
