@@ -49,6 +49,8 @@ public class ExchangeCurrency implements Listener {
                     return;
                 }
 
+                event.getPlayer().sendMessage("Calculated rarity score: " + rarityScore);
+
                 exchangeChestItems(event, chestItems, rarityScore);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
