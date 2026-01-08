@@ -10,28 +10,66 @@ Spigot 1.9 or higher
 
 ## Current lootable mobs
 
-### Enemies
+### Enemies (29 total)
 
-- Spiders
-- Zombies
+- Blaze
+- Creeper
+- Dragon (Ender Dragon)
 - Drowned
-- Skeletons
-- Creepers
-- Witches
-- Villagers
-- Zombie Villagers
-- Pillagers
-- Endermans
-- Guardians
-- Elder Guardians
+- Elder Guardian
+- Enderman
+- Ghast
+- Guardian
+- Hoglin
+- Husk
+- Magma Cube
+- Phantom
+- Piglin
+- Pillager (includes Vindicator, Illusioner, Evoker)
+- Ravager
+- Shulker
+- Silverfish
+- Skeleton
+- Slime
+- Spider
+- Stray
+- Vex
+- Villager (includes Zombie Villager)
+- Warden
+- Witch
+- Wither
+- Zoglin
+- Zombie
+- Zombie Piglin
 
-### Animals
+### Animals (26 total)
 
+- Allay
+- Armadillo
+- Axolotl
+- Bat
+- Bee
+- Camel
+- Cat
 - Chicken
-- Pig
 - Cow
-- Sheep
+- Donkey
+- Fox
+- Goat
+- Horse
+- Iron Golem
+- Llama
+- Mooshroom
+- Mule
+- Panda
+- Parrot
+- Pig
 - Rabbit
+- Sheep
+- Snow Golem
+- Strider
+- Turtle
+- Wolf
 
 ## How does it work?
 
