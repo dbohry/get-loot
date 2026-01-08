@@ -50,8 +50,12 @@ public class Witch implements Mob {
         List<ItemStack> customLoot = helper.createLoot(CUSTOM, 1, 1, customItems);
 
         List<Enchantment> enchantments = Arrays.asList(
+                Enchantment.BANE_OF_ARTHROPODS,
+                Enchantment.BREACH,
                 Enchantment.FIRE_ASPECT,
-                Enchantment.DAMAGE_ALL
+                Enchantment.LUCK_OF_THE_SEA,
+                Enchantment.KNOCKBACK,
+                Enchantment.SHARPNESS
         );
 
         customLoot.forEach(item -> {
