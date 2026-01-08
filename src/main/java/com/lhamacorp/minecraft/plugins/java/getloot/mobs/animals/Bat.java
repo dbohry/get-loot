@@ -1,4 +1,4 @@
-package com.lhamacorp.minecraft.plugins.java.getloot.mobs.foe;
+package com.lhamacorp.minecraft.plugins.java.getloot.mobs.animals;
 
 import com.lhamacorp.minecraft.plugins.java.getloot.mobs.Mob;
 import com.lhamacorp.minecraft.plugins.java.getloot.utils.LootHelper;
@@ -11,19 +11,20 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity.CUSTOM;
-import static org.bukkit.entity.EntityType.SLIME;
+import static org.bukkit.Material.BAT_SPAWN_EGG;
+import static org.bukkit.entity.EntityType.BAT;
 
-public class Slime implements Mob {
+public class Bat implements Mob {
 
     private final LootHelper helper = new LootHelper();
 
     @Override
     public boolean isRightMob(EntityType type) {
-        return type == SLIME;
+        return type == BAT;
     }
 
     public List<ItemStack> prepareLoot() {
-        List<Material> customLoot = Collections.singletonList(Material.SLIME_SPAWN_EGG);
+        List<Material> customLoot = Collections.singletonList(BAT_SPAWN_EGG);
         return new ArrayList<>(helper.createLoot(CUSTOM, 1, 1, customLoot));
     }
 

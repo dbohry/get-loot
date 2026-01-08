@@ -29,7 +29,6 @@ public class Villager implements Mob {
         loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
         loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.08f));
         loot.addAll(helper.createLoot(Rarity.VERY_RARE, 1, 1.05f));
-
         loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.08f));
         loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.05f));
 

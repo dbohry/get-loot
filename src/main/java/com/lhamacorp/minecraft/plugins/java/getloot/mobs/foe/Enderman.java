@@ -28,7 +28,6 @@ public class Enderman implements Mob {
         loot.addAll(helper.createLoot(Rarity.RARE, 3, 1.040f));
         loot.addAll(helper.createLoot(Rarity.VERY_RARE, 3, 1.025f));
         loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.01f));
-
         loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.040f));
         loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.025f));
 

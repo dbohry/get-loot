@@ -24,7 +24,6 @@ public class Guardian implements Mob {
         List<ItemStack> loot = new ArrayList<>();
 
         loot.addAll(helper.createLoot(Rarity.EPIC, 1, 1.05f));
-
         loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.045f));
         loot.addAll(helper.createLoot(Rarity.RARE_CURRENCY, 1, 1.030f));
 

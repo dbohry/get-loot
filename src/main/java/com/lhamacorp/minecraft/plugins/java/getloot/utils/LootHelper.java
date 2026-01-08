@@ -55,7 +55,7 @@ public class LootHelper {
         Collections.shuffle(RARITY_LISTS.get(rarity));
         List<ItemStack> stack = new ArrayList<>();
         for (int i = 0; i <= tries; i++) {
-            if (shouldAddItemToLoot(rarity, multiplier) && stack.size() < 1) {
+            if (shouldAddItemToLoot(rarity, multiplier) && stack.isEmpty()) {
                 RARITY_LISTS.get(rarity).stream()
                         .findFirst()
                         .ifPresent(item -> stack.add(new ItemStack(item, 1)));

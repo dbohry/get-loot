@@ -27,7 +27,6 @@ public class Creeper implements Mob {
         loot.addAll(helper.createLoot(Rarity.COMMON, 5, 1));
         loot.addAll(helper.createLoot(Rarity.RARE, 2, 1.030f));
         loot.addAll(helper.createLoot(Rarity.VERY_RARE, 2, 1.020f));
-
         loot.addAll(helper.createLoot(Rarity.COMMON_CURRENCY, 1, 1.30f));
 
         return loot;
