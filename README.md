@@ -5,24 +5,31 @@ Causing monsters to drop items according to their rarity and adding a chance for
 
 ## Requirements
 
-Java 17 or higher  
-Spigot 1.20 or higher
+Java 25 or higher  
+Spigot 26.1 or higher (Minecraft 26.1 itself requires Java 25; mobs and items need a matching Minecraft version; the rest is skipped with a warning)
 
 ## Current lootable mobs
 
-### Enemies (29 total)
+### Enemies (37 total)
 
 - Blaze
+- Bogged
+- Breeze
+- Camel Husk
+- Cave Spider
+- Creaking
 - Creeper
 - Dragon (Ender Dragon)
 - Drowned
 - Elder Guardian
 - Enderman
+- Endermite
 - Ghast
 - Guardian
 - Hoglin
 - Husk
 - Magma Cube
+- Parched
 - Phantom
 - Piglin
 - Pillager (includes Vindicator, Illusioner, Evoker)
@@ -40,9 +47,10 @@ Spigot 1.20 or higher
 - Wither
 - Zoglin
 - Zombie
+- Zombie Nautilus
 - Zombie Piglin
 
-### Animals (26 total)
+### Animals (40 total)
 
 - Allay
 - Armadillo
@@ -52,24 +60,38 @@ Spigot 1.20 or higher
 - Camel
 - Cat
 - Chicken
+- Copper Golem
 - Cow
+- Dolphin
 - Donkey
 - Fox
+- Frog
+- Glow Squid
 - Goat
+- Happy Ghast
 - Horse
 - Iron Golem
 - Llama
 - Mooshroom
 - Mule
+- Nautilus
+- Ocelot
 - Panda
 - Parrot
 - Pig
+- Polar Bear
 - Rabbit
 - Sheep
+- Skeleton Horse
+- Sniffer
 - Snow Golem
+- Squid
 - Strider
+- Trader Llama
 - Turtle
+- Wandering Trader
 - Wolf
+- Zombie Horse
 
 ## How does it work?
 

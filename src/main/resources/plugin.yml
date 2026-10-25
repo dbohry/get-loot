@@ -1,5 +1,5 @@
 name: GetLoot
 version: ${project.version}
 main: com.lhamacorp.minecraft.plugins.java.getloot.Main
-api-version: 1.20
+api-version: 26.1
 authors: [ Hellmazter ]
