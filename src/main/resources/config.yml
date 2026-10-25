@@ -323,3 +323,93 @@ mobs:
   turtle:
     drops:
       - { items: [TURTLE_SPAWN_EGG, TURTLE_SCUTE, SEAGRASS, TURTLE_HELMET], tries: 2 }
+  # --- added for newer Minecraft versions (skipped with a warning on older servers) ---
+  cave_spider:
+    drops:
+      - { tier: VERY_COMMON, tries: 5 }
+      - { tier: COMMON, tries: 4 }
+      - { tier: RARE, tries: 2, multiplier: 1.01 }
+      - { items: [CAVE_SPIDER_SPAWN_EGG, COBWEB, STRING], tries: 2 }
+  endermite:
+    drops:
+      - { tier: VERY_COMMON, tries: 4 }
+      - { tier: COMMON, tries: 3 }
+      - { items: [ENDERMITE_SPAWN_EGG, ENDER_PEARL], tries: 2 }
+  bogged:
+    drops:
+      - { tier: VERY_COMMON, tries: 5 }
+      - { tier: COMMON, tries: 4 }
+      - { tier: RARE, tries: 3 }
+      - { items: [BOGGED_SPAWN_EGG, TIPPED_ARROW, BOW, ARROW], tries: 2 }
+  parched:
+    drops:
+      - { tier: VERY_COMMON, tries: 5 }
+      - { tier: COMMON, tries: 4 }
+      - { tier: RARE, tries: 3 }
+      - { items: [PARCHED_SPAWN_EGG, ARROW, BOW, SAND], tries: 2 }
+  camel_husk:
+    drops:
+      - { tier: VERY_COMMON, tries: 5 }
+      - { tier: COMMON, tries: 5 }
+      - { tier: RARE, tries: 3, multiplier: 1.015 }
+      - { items: [CAMEL_HUSK_SPAWN_EGG, SAND, DEAD_BUSH, LEATHER], tries: 2 }
+  zombie_nautilus:
+    drops:
+      - { tier: VERY_COMMON, tries: 5 }
+      - { tier: COMMON, tries: 4 }
+      - { tier: RARE, tries: 2 }
+      - { items: [ZOMBIE_NAUTILUS_SPAWN_EGG, NAUTILUS_SHELL, KELP], tries: 2 }
+  breeze:
+    drops:
+      - { tier: COMMON, tries: 4 }
+      - { tier: RARE, tries: 3, multiplier: 1.025 }
+      - { tier: VERY_RARE, tries: 2, multiplier: 1.015 }
+      - { items: [BREEZE_SPAWN_EGG, BREEZE_ROD, WIND_CHARGE], tries: 2 }
+  creaking:
+    drops:
+      - { tier: COMMON, tries: 4 }
+      - { tier: RARE, tries: 3, multiplier: 1.025 }
+      - { tier: VERY_RARE, tries: 2, multiplier: 1.015 }
+      - { items: [CREAKING_SPAWN_EGG, RESIN_CLUMP, PALE_OAK_LOG], tries: 2 }
+  happy_ghast:
+    drops:
+      - { items: [HAPPY_GHAST_SPAWN_EGG, DRIED_GHAST], tries: 2 }
+  copper_golem:
+    drops:
+      - { items: [COPPER_GOLEM_SPAWN_EGG, COPPER_INGOT, COPPER_BLOCK], tries: 2 }
+  nautilus:
+    drops:
+      - { items: [NAUTILUS_SPAWN_EGG, NAUTILUS_SHELL], tries: 2 }
+  sniffer:
+    drops:
+      - { items: [SNIFFER_SPAWN_EGG], tries: 2 }
+  frog:
+    drops:
+      - { items: [FROG_SPAWN_EGG], tries: 2 }
+  squid:
+    drops:
+      - { items: [SQUID_SPAWN_EGG], tries: 2 }
+  glow_squid:
+    drops:
+      - { items: [GLOW_SQUID_SPAWN_EGG], tries: 2 }
+  ocelot:
+    drops:
+      - { items: [OCELOT_SPAWN_EGG], tries: 2 }
+  polar_bear:
+    drops:
+      - { items: [POLAR_BEAR_SPAWN_EGG], tries: 2 }
+  dolphin:
+    drops:
+      - { items: [DOLPHIN_SPAWN_EGG], tries: 2 }
+  trader_llama:
+    drops:
+      - { items: [TRADER_LLAMA_SPAWN_EGG], tries: 2 }
+  wandering_trader:
+    drops:
+      - { items: [WANDERING_TRADER_SPAWN_EGG], tries: 2 }
+  skeleton_horse:
+    drops:
+      - { items: [SKELETON_HORSE_SPAWN_EGG, BONE], tries: 2 }
+  zombie_horse:
+    drops:
+      - { items: [ZOMBIE_HORSE_SPAWN_EGG, ROTTEN_FLESH], tries: 2 }
