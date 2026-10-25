@@ -1,70 +1,38 @@
 package com.lhamacorp.minecraft.plugins.java.getloot.mods;
 
-import com.lhamacorp.minecraft.plugins.java.getloot.mobs.Mob;
-import com.lhamacorp.minecraft.plugins.java.getloot.utils.LootHelper;
+import com.lhamacorp.minecraft.plugins.java.getloot.loot.DropRule;
+import com.lhamacorp.minecraft.plugins.java.getloot.loot.LootConfig;
+import com.lhamacorp.minecraft.plugins.java.getloot.loot.LootRoller;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import static com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity.COMMON_CURRENCY;
-import static com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity.RARE_CURRENCY;
-import static com.lhamacorp.minecraft.plugins.java.getloot.mobs.MobUtil.MOB_LIST;
 
 public class GetLootFromKill implements Listener {
 
-    private final LootHelper helper = new LootHelper();
+    private final LootConfig config;
+    private final LootRoller roller;
 
-    private final List<Mob> mobs = MOB_LIST.stream()
-            .map(this::createMob)
-            .filter(Objects::nonNull)
-            .toList();
-
-    private Mob createMob(Class<? extends Mob> mobClass) {
-        try {
-            return mobClass.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException
-                 | IllegalAccessException
-                 | NoSuchMethodException
-                 | InvocationTargetException e) {
-            return null;
-        }
+    public GetLootFromKill(LootConfig config, LootRoller roller) {
+        this.config = config;
+        this.roller = roller;
     }
 
     @EventHandler
     public void onKill(EntityDeathEvent event) {
-        LivingEntity creature = event.getEntity();
+        List<DropRule> rules = config.dropsFor(event.getEntityType());
+        if (rules.isEmpty()) return;
 
-        mobs.stream()
-                .filter(mob -> mob.isRightMob(creature.getType()))
-                .findFirst()
-                .ifPresent(mob -> spawnLoot(creature, mob.prepareLoot()));
-    }
-
-    private List<ItemStack> addCurrencyItem() {
-        List<ItemStack> currency = new ArrayList<>();
-        currency.addAll(helper.createLoot(COMMON_CURRENCY, 1, 1));
-        currency.addAll(helper.createLoot(RARE_CURRENCY, 1, 1));
-
-        return currency;
-    }
-
-    private void spawnLoot(LivingEntity entity, List<ItemStack> loot) {
+        List<ItemStack> loot = roller.roll(rules);
         if (loot.isEmpty()) return;
 
-        loot.addAll(addCurrencyItem());
+        loot.addAll(roller.roll(config.bonusDrops()));
 
-        for (ItemStack item : loot) {
-            entity
-                    .getWorld()
-                    .dropItemNaturally(entity.getLocation(), item);
-        }
+        LivingEntity entity = event.getEntity();
+        loot.forEach(item -> entity.getWorld().dropItemNaturally(entity.getLocation(), item));
     }
 
 }

@@ -1,0 +1,325 @@
+# GetLoot configuration
+#
+# tiers:   named item pools. A drop rolls against the tier's threshold (see "mobs").
+# mobs:    loot per entity type. The key is the EntityType name (case-insensitive);
+#          use "entities: [...]" to cover several types with one entry.
+# drops:   each entry is { tier: NAME } or { items: [MATERIAL, ...] } plus optional
+#            tries:       how many times to roll (default 1). Each roll can succeed;
+#                         at most ONE item is dropped per entry.
+#            multiplier:  scales the chance per roll (default 1.0)
+#            threshold:   only for "items" entries, same meaning as in tiers (default 900)
+#            enchantments: [fire_aspect, sharpness]  one is applied at random, level 1
+#
+# Chance per roll = 1 - threshold / (1000 * multiplier), clamped to 0..1.
+# A threshold of 900 is therefore 10% per roll, 990 is 1%, 1000 never drops
+# unless the multiplier is above 1.
+#
+# Unknown materials or entity types are skipped with a warning in the server log.
+
+tiers:
+  COMMON_CURRENCY:
+    threshold: 500
+    items: [IRON_NUGGET, GOLD_NUGGET]
+  RARE_CURRENCY:
+    threshold: 990
+    items: [EMERALD, LAPIS_LAZULI]
+  VERY_COMMON:
+    threshold: 900
+    items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, WOODEN_SHOVEL, WOODEN_PICKAXE, WOODEN_AXE, WOODEN_SWORD, WOODEN_HOE, PUMPKIN_SEEDS, MELON_SEEDS, WHEAT_SEEDS, LEATHER, OAK_SAPLING, POTATO, CARROT]
+  COMMON:
+    threshold: 950
+    items: [CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, STONE_SHOVEL, STONE_PICKAXE, STONE_AXE, STONE_SWORD, STONE_HOE, BEEF, COOKED_BEEF, BREAD, IRON_INGOT, IRON_NUGGET, ARROW, PAPER]
+  RARE:
+    threshold: 990
+    items: [IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, IRON_SHOVEL, IRON_PICKAXE, IRON_AXE, IRON_SWORD, IRON_HOE, GOLD_NUGGET, GOLDEN_SHOVEL, GOLD_INGOT, DIAMOND, CROSSBOW, SADDLE, NAME_TAG, FISHING_ROD, IRON_HORSE_ARMOR]
+  VERY_RARE:
+    threshold: 999
+    items: [EMERALD, GOLDEN_HELMET, GOLDEN_CHESTPLATE, GOLDEN_LEGGINGS, GOLDEN_BOOTS, GOLDEN_PICKAXE, GOLDEN_AXE, GOLDEN_SWORD, GOLDEN_HOE, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS, DIAMOND_SHOVEL, DIAMOND_PICKAXE, DIAMOND_AXE, DIAMOND_SWORD, DIAMOND_HOE, SHIELD, MAP, COMPASS, CLOCK, NETHERITE_INGOT, GOLDEN_APPLE, HORSE_SPAWN_EGG, DIAMOND_HORSE_ARMOR]
+  EPIC:
+    threshold: 1000
+    items: [NETHERITE_HELMET, NETHERITE_CHESTPLATE, NETHERITE_LEGGINGS, NETHERITE_BOOTS, NETHERITE_SHOVEL, NETHERITE_PICKAXE, NETHERITE_AXE, NETHERITE_SWORD, NETHERITE_HOE, TOTEM_OF_UNDYING, ELYTRA, NETHER_WART]
+
+# Rolled once for every kill that already dropped something.
+bonus-drops:
+  - { tier: COMMON_CURRENCY, tries: 2 }
+  - { tier: RARE_CURRENCY, tries: 2 }
+
+# Place a chest on a redstone block, put the listed items in it and close it:
+# the items are consumed and the player receives one item from the tier.
+exchange:
+  max-stacks: 3
+  recipes:
+    - { inputs: [EMERALD, LAPIS_LAZULI, GOLD_INGOT], tier: EPIC }
+    - { inputs: [EMERALD, LAPIS_LAZULI], tier: VERY_RARE }
+    - { inputs: [GOLD_INGOT, IRON_INGOT], tier: RARE }
+    - { inputs: [GOLD_NUGGET, IRON_NUGGET], tier: COMMON }
+
+mobs:
+  # --- hostile ---
+  zombie:
+    drops:
+      - { tier: VERY_COMMON, tries: 6 }
+      - { tier: COMMON, tries: 5 }
+      - { tier: RARE, tries: 2 }
+      - { items: [MELON_SEEDS, WHEAT_SEEDS, PUMPKIN_SEEDS, APPLE, POTATO, CARROT, SWEET_BERRIES, BEETROOT, BEETROOT_SEEDS], tries: 2 }
+  zombified_piglin:
+    drops:
+      - { tier: VERY_COMMON, tries: 5 }
+      - { tier: COMMON, tries: 6 }
+      - { tier: RARE, tries: 3, multiplier: 1.025 }
+      - { tier: VERY_RARE, tries: 4, multiplier: 1.015 }
+  spider:
+    drops:
+      - { tier: VERY_COMMON, tries: 6 }
+      - { tier: COMMON, tries: 5 }
+      - { tier: RARE, tries: 3, multiplier: 1.01 }
+      - { tier: VERY_RARE, tries: 3 }
+      - { items: [SPIDER_SPAWN_EGG, COBWEB], tries: 2 }
+  skeleton:
+    drops:
+      - { tier: VERY_COMMON, tries: 6 }
+      - { tier: COMMON, tries: 6 }
+      - { tier: RARE, tries: 3, multiplier: 1.025 }
+      - { tier: VERY_RARE, tries: 3, multiplier: 1.015 }
+      - { items: [ARROW, SPECTRAL_ARROW, TIPPED_ARROW, CROSSBOW, BOW], tries: 2 }
+  creeper:
+    drops:
+      - { tier: VERY_COMMON, tries: 6 }
+      - { tier: COMMON, tries: 6 }
+      - { tier: RARE, tries: 3, multiplier: 1.03 }
+      - { tier: VERY_RARE, tries: 3, multiplier: 1.02 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.3 }
+  slime:
+    drops:
+      - { items: [SLIME_SPAWN_EGG], tries: 2 }
+  villager:
+    entities: [VILLAGER, ZOMBIE_VILLAGER]
+    drops:
+      - { tier: VERY_COMMON, tries: 6 }
+      - { tier: COMMON, tries: 6 }
+      - { tier: RARE, tries: 3, multiplier: 1.08 }
+      - { tier: VERY_RARE, tries: 2, multiplier: 1.05 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.08 }
+      - { tier: RARE_CURRENCY, tries: 2, multiplier: 1.05 }
+  pillager:
+    entities: [PILLAGER, VINDICATOR, ILLUSIONER, EVOKER]
+    drops:
+      - { tier: VERY_COMMON, tries: 6 }
+      - { tier: COMMON, tries: 6 }
+      - { tier: RARE, tries: 4, multiplier: 1.08 }
+      - { tier: VERY_RARE, tries: 3, multiplier: 1.05 }
+      - { tier: EPIC, tries: 2, multiplier: 1.01 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.08 }
+      - { tier: RARE_CURRENCY, tries: 2, multiplier: 1.05 }
+      - { items: [ARROW, SPECTRAL_ARROW, TIPPED_ARROW, CROSSBOW, BOW], tries: 2 }
+  witch:
+    drops:
+      - { tier: VERY_COMMON, tries: 6 }
+      - { tier: COMMON, tries: 6 }
+      - { tier: RARE, tries: 4, multiplier: 1.045 }
+      - { tier: VERY_RARE, tries: 4, multiplier: 1.03 }
+      - { tier: EPIC, tries: 2, multiplier: 1.01 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.045 }
+      - { tier: RARE_CURRENCY, tries: 2, multiplier: 1.03 }
+      - { items: [WOODEN_SWORD, STONE_SWORD, IRON_SWORD, DIAMOND_SWORD], tries: 2, enchantments: [bane_of_arthropods, breach, fire_aspect, luck_of_the_sea, knockback, sharpness] }
+  enderman:
+    drops:
+      - { tier: VERY_COMMON, tries: 6 }
+      - { tier: COMMON, tries: 6 }
+      - { tier: RARE, tries: 4, multiplier: 1.04 }
+      - { tier: VERY_RARE, tries: 4, multiplier: 1.025 }
+      - { tier: EPIC, tries: 2, multiplier: 1.01 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.04 }
+      - { tier: RARE_CURRENCY, tries: 2, multiplier: 1.025 }
+  guardian:
+    drops:
+      - { tier: EPIC, tries: 2, multiplier: 1.05 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.045 }
+      - { tier: RARE_CURRENCY, tries: 2, multiplier: 1.03 }
+  ravager:
+    drops:
+      - { tier: EPIC, tries: 2, multiplier: 1.05 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.045 }
+      - { tier: RARE_CURRENCY, tries: 2, multiplier: 1.03 }
+  blaze:
+    drops:
+      - { tier: COMMON, tries: 5 }
+      - { tier: RARE, tries: 4, multiplier: 1.025 }
+      - { tier: VERY_RARE, tries: 2, multiplier: 1.015 }
+      - { items: [BLAZE_ROD, FIRE_CHARGE, BLAZE_POWDER], tries: 2 }
+  drowned:
+    drops:
+      - { tier: VERY_COMMON, tries: 5 }
+      - { tier: COMMON, tries: 4 }
+      - { tier: RARE, tries: 2 }
+      - { items: [TRIDENT, NAUTILUS_SHELL, KELP, FISHING_ROD], tries: 2 }
+  ghast:
+    drops:
+      - { tier: RARE, tries: 4, multiplier: 1.05 }
+      - { tier: VERY_RARE, tries: 3, multiplier: 1.03 }
+      - { tier: EPIC, tries: 2, multiplier: 1.01 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.08 }
+      - { tier: RARE_CURRENCY, tries: 2, multiplier: 1.05 }
+      - { items: [GHAST_TEAR, FIRE_CHARGE, GUNPOWDER], tries: 2 }
+  hoglin:
+    drops:
+      - { tier: COMMON, tries: 5 }
+      - { tier: RARE, tries: 3, multiplier: 1.025 }
+      - { tier: VERY_RARE, tries: 2, multiplier: 1.015 }
+      - { items: [HOGLIN_SPAWN_EGG, LEATHER, PORKCHOP, COOKED_PORKCHOP], tries: 2 }
+  husk:
+    drops:
+      - { tier: VERY_COMMON, tries: 5 }
+      - { tier: COMMON, tries: 5 }
+      - { tier: RARE, tries: 3, multiplier: 1.015 }
+      - { items: [HUSK_SPAWN_EGG, SAND, DEAD_BUSH, GOLD_NUGGET], tries: 2 }
+  magma_cube:
+    drops:
+      - { tier: VERY_COMMON, tries: 4 }
+      - { tier: COMMON, tries: 3 }
+      - { items: [MAGMA_CREAM, MAGMA_CUBE_SPAWN_EGG, MAGMA_BLOCK], tries: 2 }
+  phantom:
+    drops:
+      - { tier: COMMON, tries: 4 }
+      - { tier: RARE, tries: 3, multiplier: 1.02 }
+      - { tier: VERY_RARE, tries: 2, multiplier: 1.01 }
+      - { items: [PHANTOM_MEMBRANE, FEATHER], tries: 2 }
+  piglin:
+    drops:
+      - { tier: COMMON, tries: 4 }
+      - { tier: RARE, tries: 3, multiplier: 1.02 }
+      - { items: [PIGLIN_SPAWN_EGG, GOLD_NUGGET, CROSSBOW, GOLD_INGOT], tries: 2 }
+  shulker:
+    drops:
+      - { tier: RARE, tries: 5, multiplier: 1.06 }
+      - { tier: VERY_RARE, tries: 3, multiplier: 1.04 }
+      - { tier: EPIC, tries: 2, multiplier: 1.02 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.09 }
+      - { tier: RARE_CURRENCY, tries: 2, multiplier: 1.06 }
+      - { items: [SHULKER_SHELL, SHULKER_BOX, END_STONE, PURPUR_BLOCK], tries: 2 }
+  silverfish:
+    drops:
+      - { tier: VERY_COMMON, tries: 4 }
+      - { tier: COMMON, tries: 3 }
+      - { items: [SILVERFISH_SPAWN_EGG, STONE, COBBLESTONE], tries: 2 }
+  stray:
+    drops:
+      - { tier: VERY_COMMON, tries: 5 }
+      - { tier: COMMON, tries: 4 }
+      - { tier: RARE, tries: 3 }
+      - { items: [TIPPED_ARROW, BOW, ICE, ARROW], tries: 2 }
+  vex:
+    drops:
+      - { tier: RARE, tries: 3, multiplier: 1.04 }
+      - { tier: VERY_RARE, tries: 3, multiplier: 1.02 }
+      - { items: [VEX_SPAWN_EGG, IRON_SWORD, FEATHER], tries: 2 }
+  zoglin:
+    drops:
+      - { tier: COMMON, tries: 5 }
+      - { tier: RARE, tries: 3, multiplier: 1.025 }
+      - { tier: VERY_RARE, tries: 2, multiplier: 1.015 }
+      - { items: [ZOGLIN_SPAWN_EGG, ROTTEN_FLESH, BONE, LEATHER], tries: 2 }
+  # --- bosses ---
+  elder_guardian:
+    drops:
+      - { tier: VERY_RARE, tries: 4, multiplier: 1.04 }
+      - { tier: EPIC, tries: 3, multiplier: 1.3 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.05 }
+      - { tier: RARE_CURRENCY, tries: 2, multiplier: 1.035 }
+  ender_dragon:
+    drops:
+      - { tier: VERY_RARE, tries: 4, multiplier: 1.04 }
+      - { tier: EPIC, tries: 3, multiplier: 1.35 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.05 }
+      - { tier: RARE_CURRENCY, tries: 2, multiplier: 1.035 }
+  wither:
+    drops:
+      - { tier: VERY_RARE, tries: 4, multiplier: 1.025 }
+      - { tier: EPIC, tries: 2, multiplier: 1.3 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.05 }
+      - { tier: RARE_CURRENCY, tries: 2, multiplier: 1.035 }
+  warden:
+    drops:
+      - { tier: VERY_RARE, tries: 4, multiplier: 1.04 }
+      - { tier: EPIC, tries: 2, multiplier: 1.35 }
+      - { tier: COMMON_CURRENCY, tries: 2, multiplier: 1.05 }
+      - { tier: RARE_CURRENCY, tries: 2, multiplier: 1.035 }
+  # --- animals: spawn egg chance ---
+  axolotl:
+    drops:
+      - { items: [AXOLOTL_SPAWN_EGG], tries: 2 }
+  bat:
+    drops:
+      - { items: [BAT_SPAWN_EGG], tries: 2 }
+  bee:
+    drops:
+      - { items: [BEE_SPAWN_EGG, BEEHIVE], tries: 2 }
+  camel:
+    drops:
+      - { items: [CAMEL_SPAWN_EGG, LEATHER], tries: 2 }
+  cat:
+    drops:
+      - { items: [CAT_SPAWN_EGG], tries: 2 }
+  chicken:
+    drops:
+      - { items: [CHICKEN_SPAWN_EGG], tries: 2 }
+  cow:
+    drops:
+      - { items: [COW_SPAWN_EGG], tries: 2 }
+  donkey:
+    drops:
+      - { items: [DONKEY_SPAWN_EGG, LEATHER], tries: 2 }
+  fox:
+    drops:
+      - { items: [FOX_SPAWN_EGG], tries: 2 }
+  goat:
+    drops:
+      - { items: [GOAT_SPAWN_EGG], tries: 2 }
+  horse:
+    drops:
+      - { items: [HORSE_SPAWN_EGG, LEATHER], tries: 2 }
+  llama:
+    drops:
+      - { items: [LLAMA_SPAWN_EGG], tries: 2 }
+  mule:
+    drops:
+      - { items: [MULE_SPAWN_EGG, LEATHER], tries: 2 }
+  pig:
+    drops:
+      - { items: [PIG_SPAWN_EGG], tries: 2 }
+  rabbit:
+    drops:
+      - { items: [RABBIT_SPAWN_EGG], tries: 2 }
+  sheep:
+    drops:
+      - { items: [SHEEP_SPAWN_EGG], tries: 2 }
+  wolf:
+    drops:
+      - { items: [WOLF_SPAWN_EGG], tries: 2 }
+  allay:
+    drops:
+      - { items: [ALLAY_SPAWN_EGG], tries: 2 }
+  armadillo:
+    drops:
+      - { items: [ARMADILLO_SPAWN_EGG, ARMADILLO_SCUTE], tries: 2 }
+  iron_golem:
+    drops:
+      - { items: [IRON_GOLEM_SPAWN_EGG, IRON_INGOT, POPPY, IRON_BLOCK], tries: 2 }
+  mooshroom:
+    drops:
+      - { items: [MOOSHROOM_SPAWN_EGG, RED_MUSHROOM, BROWN_MUSHROOM, MUSHROOM_STEW], tries: 2 }
+  panda:
+    drops:
+      - { items: [PANDA_SPAWN_EGG, BAMBOO, CAKE, SWEET_BERRIES], tries: 2 }
+  parrot:
+    drops:
+      - { items: [PARROT_SPAWN_EGG, FEATHER], tries: 2 }
+  snow_golem:
+    drops:
+      - { items: [SNOW_GOLEM_SPAWN_EGG, SNOW_BLOCK, CARVED_PUMPKIN, SNOWBALL], tries: 2 }
+  strider:
+    drops:
+      - { items: [STRIDER_SPAWN_EGG, WARPED_FUNGUS], tries: 2 }
+  turtle:
+    drops:
+      - { items: [TURTLE_SPAWN_EGG, TURTLE_SCUTE, SEAGRASS, TURTLE_HELMET], tries: 2 }

@@ -1,93 +1,72 @@
 package com.lhamacorp.minecraft.plugins.java.getloot.mods;
 
-import com.lhamacorp.minecraft.plugins.java.getloot.enums.Rarity;
-import com.lhamacorp.minecraft.plugins.java.getloot.utils.LootHelper;
+import com.lhamacorp.minecraft.plugins.java.getloot.loot.LootConfig;
+import com.lhamacorp.minecraft.plugins.java.getloot.loot.LootRoller;
+import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toSet;
-
+/**
+ * Closing a chest that sits on a redstone block, holding exactly the items of an exchange
+ * recipe, consumes all but one of each stack and rewards one item of the recipe's tier.
+ */
 public class ExchangeCurrency implements Listener {
 
-    private final LootHelper lootHelper = new LootHelper();
+    private final LootConfig config;
+    private final LootRoller roller;
 
-    private static final int ZERO = 0;
-    private static final int MAX_RARITY_SCORE = 1000;
-    private static final int HIGH_RARITY_SCORE = 999;
-    private static final int MEDIUM_RARITY_SCORE = 990;
-    private static final int LOW_RARITY_SCORE = 950;
+    public ExchangeCurrency(LootConfig config, LootRoller roller) {
+        this.config = config;
+        this.roller = roller;
+    }
 
     @EventHandler
     public void onCloseChest(InventoryCloseEvent event) {
-        if (event.getInventory().getType().equals(InventoryType.CHEST)) {
-            try {
-                Block blockBelowChest = getTypeBlockBelowChest(event);
+        Inventory chest = event.getInventory();
+        Location location = chest.getLocation();
 
-                if (blockBelowChest.getType() != Material.REDSTONE_BLOCK) {
-                    return;
-                }
+        if (chest.getType() != InventoryType.CHEST || location == null) return;
+        if (location.getBlock().getRelative(BlockFace.DOWN).getType() != Material.REDSTONE_BLOCK) return;
 
-                List<ItemStack> chestItems = getItemsFromChest(event);
-
-                if (chestItems.size() > 3) {
-                    return;
-                }
-
-                int rarityScore = calculateRarityScoreFromMaterials(chestItems.stream()
-                        .map(ItemStack::getType)
-                        .collect(toSet()));
-
-                if (rarityScore == ZERO) {
-                    return;
-                }
-
-                event.getPlayer().sendMessage("Calculated rarity score: " + rarityScore);
-
-                exchangeChestItems(event, chestItems, rarityScore);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    public int calculateRarityScoreFromMaterials(Set<Material> materials) {
-        Map<Set<Material>, Integer> rarityMap = Map.of(
-                Set.of(Material.EMERALD, Material.LAPIS_LAZULI, Material.GOLD_INGOT), MAX_RARITY_SCORE,
-                Set.of(Material.EMERALD, Material.LAPIS_LAZULI), HIGH_RARITY_SCORE,
-                Set.of(Material.GOLD_INGOT, Material.IRON_INGOT), MEDIUM_RARITY_SCORE,
-                Set.of(Material.GOLD_NUGGET, Material.IRON_NUGGET), LOW_RARITY_SCORE
-        );
-
-        return rarityMap.getOrDefault(materials, ZERO);
-    }
-
-    private void exchangeChestItems(InventoryCloseEvent event, List<ItemStack> chestItems, int rarityScore) {
-        chestItems.forEach(item -> {
-            event.getPlayer().getInventory().addItem(new ItemStack(item.getType(), item.getAmount() - 1));
-            event.getInventory().remove(item);
-        });
-
-        event.getPlayer().getInventory().addItem(lootHelper.createLoot(Rarity.rarityFromScore(rarityScore)));
-    }
-
-    private static List<ItemStack> getItemsFromChest(InventoryCloseEvent event) {
-        return Arrays.stream(event.getInventory().getContents())
+        List<ItemStack> stacks = Arrays.stream(chest.getContents())
                 .filter(Objects::nonNull)
                 .toList();
+        if (stacks.isEmpty() || stacks.size() > config.maxExchangeStacks()) return;
+
+        Set<Material> inputs = stacks.stream().map(ItemStack::getType).collect(Collectors.toSet());
+
+        config.exchangeRewardFor(inputs).ifPresent(reward -> {
+            chest.clear();
+
+            HumanEntity player = event.getPlayer();
+            for (ItemStack stack : stacks) {
+                give(player, stack, stack.getAmount() - 1);
+            }
+            give(player, roller.pick(reward), 1);
+        });
     }
 
-    private static Block getTypeBlockBelowChest(InventoryCloseEvent event) {
-        return Objects.requireNonNull(event.getInventory().getLocation())
-                .getBlock()
-                .getRelative(BlockFace.DOWN);
+    private static void give(HumanEntity player, ItemStack template, int amount) {
+        if (amount <= 0) return;
+
+        ItemStack item = template.clone();
+        item.setAmount(amount);
+        player.getInventory().addItem(item)
+                .values()
+                .forEach(leftover -> player.getWorld().dropItemNaturally(player.getLocation(), leftover));
     }
 
 }
