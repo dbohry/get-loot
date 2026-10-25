@@ -5,8 +5,8 @@ Causing monsters to drop items according to their rarity and adding a chance for
 
 ## Requirements
 
-Java 17 or higher  
-Spigot 1.20 or higher (newer mobs and items need a matching Minecraft version; the rest is skipped with a warning)
+Java 25 or higher  
+Spigot 26.1 or higher (Minecraft 26.1 itself requires Java 25; mobs and items need a matching Minecraft version; the rest is skipped with a warning)
 
 ## Current lootable mobs
 
